@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --color-paper: #fbf7f0;
+  --color-ink: #1c1917;
+  --color-brand: #9e2a2b;
+  --color-brand-soft: #f3e4e1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+}
+
+.prose-article p {
+  @apply mb-5 text-[1.125rem] leading-[1.8] text-stone-800;
+}
+
+.prose-article h2 {
+  @apply mt-10 mb-4 font-serif text-2xl font-semibold;
+}
