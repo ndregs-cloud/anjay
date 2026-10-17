@@ -1,0 +1,2967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>The Harvard Gazette — Liquid Glass Editorial Edition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            crimson: '#A51C30',
+            crimsonLight: '#C82840',
+            crimsonDark: '#7D1222',
+            paper: '#FAF8F5',
+            paperDark: '#F2EFE9',
+            ink: '#111111',
+            muted: '#595959'
+          },
+          fontFamily: {
+            serif: ['Lora', 'Georgia', 'serif'],
+            display: ['Instrument Serif', 'Lora', 'Georgia', 'serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg-paper: #F7F4EF;
+      --bg-surface: rgba(255, 255, 255, 0.68);
+      --bg-surface-elevated: rgba(255, 255, 255, 0.86);
+      --bg-subtle: rgba(238, 232, 222, 0.58);
+      --glass-bg: rgba(251, 248, 242, 0.72);
+      --glass-dock: rgba(255, 255, 255, 0.76);
+      --glass-border: rgba(17, 17, 19, 0.085);
+      --specular-rim-top: rgba(255, 255, 255, 0.95);
+      --specular-rim-bottom: rgba(255, 255, 255, 0.38);
+      --specular-glow: rgba(255, 255, 255, 0.72);
+      --crimson-glow: rgba(165, 28, 48, 0.16);
+      --text-ink: #111113;
+      --text-body: #1D1D20;
+      --text-muted: #5A5854;
+      --border-tone: rgba(28, 25, 23, 0.095);
+      --article-font-size: 1.125rem;
+      --article-line-height: 1.75;
+      --glass-blur: 28px;
+      --glass-saturate: 195%;
+      --spring-easing: cubic-bezier(0.22, 1.12, 0.36, 1);
+      --fluid-easing: cubic-bezier(0.16, 1, 0.3, 1);
+      --card-shadow:
+        0 20px 44px -16px rgba(18, 15, 12, 0.075),
+        0 4px 12px -2px rgba(18, 15, 12, 0.04),
+        inset 0 1px 0 0 var(--specular-rim-top),
+        inset 0 -1px 0 0 var(--specular-rim-bottom);
+      --well-shadow:
+        inset 0 2px 5px rgba(15, 14, 12, 0.055),
+        inset 0 0 0 1px var(--border-tone),
+        0 1px 0 rgba(255, 255, 255, 0.7);
+      --ambient-orb-1: rgba(165, 28, 48, 0.10);
+      --ambient-orb-2: rgba(217, 148, 98, 0.12);
+      --ambient-orb-3: rgba(96, 125, 139, 0.08);
+      --pointer-x: 50vw;
+      --pointer-y: 25vh;
+    }
+
+    body.theme-ios {
+      --bg-paper: #EEF1F7;
+      --bg-surface: rgba(255, 255, 255, 0.72);
+      --bg-surface-elevated: rgba(255, 255, 255, 0.90);
+      --bg-subtle: rgba(226, 231, 242, 0.62);
+      --glass-bg: rgba(245, 247, 253, 0.74);
+      --glass-dock: rgba(255, 255, 255, 0.80);
+      --glass-border: rgba(15, 23, 42, 0.085);
+      --specular-rim-top: rgba(255, 255, 255, 0.98);
+      --specular-rim-bottom: rgba(255, 255, 255, 0.48);
+      --specular-glow: rgba(255, 255, 255, 0.82);
+      --text-ink: #090A0F;
+      --text-body: #181920;
+      --text-muted: #565966;
+      --border-tone: rgba(15, 23, 42, 0.09);
+      --ambient-orb-1: rgba(165, 28, 48, 0.11);
+      --ambient-orb-2: rgba(56, 128, 255, 0.10);
+      --ambient-orb-3: rgba(147, 112, 219, 0.08);
+    }
+
+    body.theme-sepia {
+      --bg-paper: #F2E8D4;
+      --bg-surface: rgba(252, 246, 233, 0.72);
+      --bg-surface-elevated: rgba(254, 249, 238, 0.88);
+      --bg-subtle: rgba(230, 217, 192, 0.62);
+      --glass-bg: rgba(246, 237, 218, 0.75);
+      --glass-dock: rgba(252, 245, 230, 0.82);
+      --glass-border: rgba(45, 34, 24, 0.11);
+      --specular-rim-top: rgba(255, 251, 242, 0.90);
+      --specular-rim-bottom: rgba(255, 248, 231, 0.35);
+      --specular-glow: rgba(255, 248, 232, 0.65);
+      --text-ink: #221A13;
+      --text-body: #2B2219;
+      --text-muted: #665544;
+      --border-tone: rgba(56, 42, 28, 0.12);
+      --ambient-orb-1: rgba(165, 28, 48, 0.10);
+      --ambient-orb-2: rgba(196, 130, 65, 0.15);
+      --ambient-orb-3: rgba(120, 95, 65, 0.10);
+    }
+
+    body.theme-midnight {
+      --bg-paper: #07080C;
+      --bg-surface: rgba(20, 22, 30, 0.70);
+      --bg-surface-elevated: rgba(28, 31, 42, 0.86);
+      --bg-subtle: rgba(14, 16, 22, 0.76);
+      --glass-bg: rgba(13, 15, 22, 0.72);
+      --glass-dock: rgba(20, 23, 34, 0.78);
+      --glass-border: rgba(255, 255, 255, 0.11);
+      --specular-rim-top: rgba(255, 255, 255, 0.22);
+      --specular-rim-bottom: rgba(255, 255, 255, 0.06);
+      --specular-glow: rgba(255, 255, 255, 0.11);
+      --crimson-glow: rgba(215, 45, 70, 0.25);
+      --text-ink: #F5F6FA;
+      --text-body: #E0E3EB;
+      --text-muted: #9498A6;
+      --border-tone: rgba(255, 255, 255, 0.10);
+      --card-shadow:
+        0 24px 54px -12px rgba(0, 0, 0, 0.72),
+        0 4px 16px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 0 var(--specular-rim-top),
+        inset 0 -1px 0 0 var(--specular-rim-bottom);
+      --well-shadow:
+        inset 0 2px 6px rgba(0, 0, 0, 0.55),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      --ambient-orb-1: rgba(195, 32, 56, 0.20);
+      --ambient-orb-2: rgba(56, 98, 190, 0.14);
+      --ambient-orb-3: rgba(140, 65, 165, 0.11);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-paper);
+      color: var(--text-ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.45s var(--fluid-easing), color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Spatial Light Stage */
+    #ambient-stage {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .ambient-orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(90px);
+      will-change: transform, opacity;
+      transition: background 0.8s ease, opacity 0.8s ease;
+    }
+
+    .ambient-orb-1 {
+      width: 50vw;
+      height: 50vw;
+      max-width: 660px;
+      max-height: 660px;
+      top: -12%;
+      left: -8%;
+      background: radial-gradient(circle, var(--ambient-orb-1) 0%, transparent 72%);
+      animation: floatOrbA 24s ease-in-out infinite alternate;
+    }
+
+    .ambient-orb-2 {
+      width: 46vw;
+      height: 46vw;
+      max-width: 600px;
+      max-height: 600px;
+      top: 28%;
+      right: -12%;
+      background: radial-gradient(circle, var(--ambient-orb-2) 0%, transparent 72%);
+      animation: floatOrbB 28s ease-in-out infinite alternate;
+    }
+
+    .ambient-orb-3 {
+      width: 52vw;
+      height: 52vw;
+      max-width: 700px;
+      max-height: 700px;
+      bottom: -18%;
+      left: 18%;
+      background: radial-gradient(circle, var(--ambient-orb-3) 0%, transparent 72%);
+      animation: floatOrbA 32s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes floatOrbA {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(4%, 5%, 0) scale(1.07); }
+    }
+
+    @keyframes floatOrbB {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(-4%, -4%, 0) scale(1.05); }
+    }
+
+    /* Core Liquid Glass Optical Material */
+    .ios-glass {
+      background:
+        linear-gradient(135deg, var(--specular-glow) 0%, transparent 48%, rgba(165, 28, 48, 0.025) 100%),
+        var(--glass-bg);
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      border-color: var(--glass-border);
+      box-shadow:
+        0 10px 30px -10px rgba(0, 0, 0, 0.07),
+        inset 0 1px 0 0 var(--specular-rim-top),
+        inset 0 -0.5px 0 0 var(--specular-rim-bottom);
+    }
+
+    .ios-dock-glass {
+      position: relative;
+      background:
+        radial-gradient(240px circle at var(--dock-x, 50%) var(--dock-y, 0%), var(--specular-glow), transparent 72%),
+        linear-gradient(165deg, rgba(255, 255, 255, 0.22) 0%, transparent 55%),
+        var(--glass-dock);
+      backdrop-filter: blur(calc(var(--glass-blur) * 1.2)) saturate(215%);
+      -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 1.2)) saturate(215%);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        0 24px 52px -12px rgba(0, 0, 0, 0.22),
+        0 4px 14px -2px rgba(0, 0, 0, 0.08),
+        inset 0 1.2px 0 0 var(--specular-rim-top),
+        inset 0 -1px 0 0 var(--specular-rim-bottom);
+    }
+
+    .theme-surface {
+      position: relative;
+      background:
+        radial-gradient(480px circle at var(--card-x, 50%) var(--card-y, -20%), var(--specular-glow), transparent 68%),
+        var(--bg-surface) !important;
+      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+      border-color: var(--border-tone) !important;
+      color: var(--text-ink) !important;
+      box-shadow: var(--card-shadow);
+      transition:
+        transform 0.42s var(--spring-easing),
+        box-shadow 0.42s var(--fluid-easing),
+        border-color 0.3s ease,
+        background-color 0.35s ease;
+    }
+
+    /* Recessed Optical Well for Segmented Controls & Inputs */
+    .theme-subtle {
+      background: var(--bg-subtle) !important;
+      backdrop-filter: blur(18px) saturate(165%);
+      -webkit-backdrop-filter: blur(18px) saturate(165%);
+      border-color: var(--border-tone) !important;
+      color: var(--text-ink) !important;
+      box-shadow: var(--well-shadow);
+    }
+
+    .liquid-card-interactive {
+      will-change: transform;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .liquid-card-interactive:hover {
+        transform: translateY(-3px) scale(1.004);
+        box-shadow:
+          0 28px 58px -18px rgba(165, 28, 48, 0.13),
+          0 10px 24px -6px rgba(0, 0, 0, 0.08),
+          inset 0 1.5px 0 0 var(--specular-rim-top),
+          inset 0 -1px 0 0 rgba(165, 28, 48, 0.22);
+      }
+    }
+
+    /* Liquid Pill & Tactile Spring Physics */
+    .ios-squircle {
+      border-radius: 26px;
+    }
+
+    .ios-press {
+      transition:
+        transform 0.32s var(--spring-easing),
+        box-shadow 0.28s var(--fluid-easing),
+        background-color 0.24s ease,
+        border-color 0.24s ease,
+        color 0.2s ease,
+        opacity 0.24s ease;
+      will-change: transform;
+    }
+
+    .ios-press:hover {
+      transform: translateY(-1px);
+    }
+
+    .ios-press:active {
+      transform: scale(0.95) translateY(0);
+      transition-duration: 0.08s;
+    }
+
+    /* Sliding Segmented Control Pill Architecture */
+    .segmented-glass-track {
+      position: relative;
+      display: grid;
+      padding: 4px;
+      border-radius: 18px;
+      background: var(--bg-subtle);
+      box-shadow: var(--well-shadow);
+      overflow: hidden;
+    }
+
+    .segmented-glass-thumb {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 4px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #C4233B 0%, #A51C30 54%, #891426 100%);
+      box-shadow:
+        0 6px 16px -3px rgba(165, 28, 48, 0.45),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.42),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.22);
+      transition: transform 0.44s var(--spring-easing), width 0.44s var(--spring-easing);
+      will-change: transform;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Liquid Crimson Accent Button */
+    .liquid-crimson-btn {
+      background: linear-gradient(145deg, #C4233B 0%, #A51C30 52%, #861425 100%);
+      color: #FFFFFF !important;
+      box-shadow:
+        0 10px 24px -6px rgba(165, 28, 48, 0.45),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.38),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .liquid-crimson-btn:hover {
+      background: linear-gradient(145deg, #CE2840 0%, #B01E34 52%, #8E1627 100%);
+      box-shadow:
+        0 14px 28px -6px rgba(165, 28, 48, 0.58),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.48);
+    }
+
+    /* Editorial Typography & Rhythm */
+    .gazette-headline {
+      font-family: 'Lora', Georgia, serif;
+      letter-spacing: -0.024em;
+      line-height: 1.12;
+      color: var(--text-ink);
+      text-wrap: balance;
+    }
+
+    .gazette-deck {
+      font-family: 'Lora', Georgia, serif;
+      line-height: 1.28;
+      letter-spacing: -0.014em;
+      color: var(--text-ink);
+      text-wrap: pretty;
+    }
+
+    .article-body p {
+      margin-bottom: 1.65rem;
+      line-height: var(--article-line-height);
+      font-size: var(--article-font-size);
+      color: var(--text-body);
+      transition: font-size 0.25s var(--fluid-easing);
+    }
+
+    .article-body > p:first-of-type::first-letter {
+      float: left;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 3.35rem;
+      line-height: 0.86;
+      padding-top: 4px;
+      padding-right: 12px;
+      padding-bottom: 2px;
+      font-weight: 600;
+      color: #A51C30;
+    }
+
+    .article-body.font-literary p {
+      font-family: 'Lora', Georgia, serif;
+    }
+
+    .article-link {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1.8px;
+      text-decoration-color: rgba(165, 28, 48, 0.65);
+      font-weight: 600;
+      color: var(--text-ink);
+      transition: all 0.2s ease;
+      border-radius: 6px;
+      padding: 1px 4px;
+      margin: 0 -2px;
+      background-color: rgba(165, 28, 48, 0.04);
+    }
+
+    .article-link:hover {
+      color: #A51C30;
+      background-color: rgba(165, 28, 48, 0.12);
+      text-decoration-color: #A51C30;
+    }
+
+    /* Integrated Dynamic Island Morphing Capsule */
+    #dynamic-island {
+      background:
+        radial-gradient(190px circle at 50% 0%, rgba(255, 255, 255, 0.20), transparent 72%),
+        rgba(12, 13, 18, 0.88);
+      backdrop-filter: blur(32px) saturate(210%);
+      -webkit-backdrop-filter: blur(32px) saturate(210%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow:
+        0 14px 34px -6px rgba(0, 0, 0, 0.34),
+        0 0 0 0.5px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.28);
+      transition:
+        width 0.46s var(--spring-easing),
+        border-radius 0.46s var(--spring-easing),
+        padding 0.4s var(--spring-easing),
+        transform 0.35s var(--spring-easing),
+        box-shadow 0.35s ease;
+      will-change: width, border-radius, transform;
+    }
+
+    #dynamic-island.island-compact:hover {
+      transform: scale(1.025);
+      box-shadow:
+        0 18px 40px -4px rgba(165, 28, 48, 0.28),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.38);
+    }
+
+    /* View & Staggered Motion Animations */
+    .view-transition {
+      animation: liquidReveal 0.48s var(--spring-easing) forwards;
+    }
+
+    @keyframes liquidReveal {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.994);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .stagger-card {
+      opacity: 0;
+      animation: cardRise 0.52s var(--spring-easing) forwards;
+    }
+
+    @keyframes cardRise {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.988);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes pulseBar {
+      0%, 100% { transform: scaleY(0.28); }
+      50% { transform: scaleY(1); }
+    }
+
+    .audio-bar {
+      animation: pulseBar 0.75s ease-in-out infinite;
+      transform-origin: bottom;
+    }
+
+    .hero-optical-frame {
+      position: relative;
+      transition: transform 0.55s var(--fluid-easing), box-shadow 0.55s var(--fluid-easing);
+      box-shadow:
+        0 26px 60px -18px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(255, 255, 255, 0.16);
+    }
+
+    .hero-optical-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow:
+        inset 0 1.5px 0 0 rgba(255, 255, 255, 0.38),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.25);
+    }
+
+    /* Floating Text Selection Action Pill */
+    #selection-popover {
+      background: rgba(14, 15, 20, 0.92);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 16px 36px -4px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.28);
+      transition: opacity 0.22s ease, transform 0.28s var(--spring-easing);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-crimson selection:text-white pb-28 sm:pb-24 relative">
+
+  <!-- Hidden SVG Filter Definition for Liquid Optical Refraction -->
+  <svg class="hidden" width="0" height="0" aria-hidden="true">
+    <defs>
+      <filter id="liquid-refraction" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Ambient Spatial Illumination Stage -->
+  <div id="ambient-stage" aria-hidden="true">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+  </div>
+
+  <!-- Real-time Luminous Reading Progress Bar -->
+  <div class="fixed top-0 left-0 right-0 h-[3px] z-50 bg-transparent pointer-events-none">
+    <div id="reading-progress-bar" class="h-full bg-gradient-to-r from-crimson via-[#E63956] to-crimson w-0 transition-[width] duration-150 ease-out shadow-[0_0_14px_rgba(165,28,48,0.85)]"></div>
+  </div>
+
+  <!-- Floating Text Selection Action Pill (Appears when highlighting article text) -->
+  <div id="selection-popover" class="fixed z-50 hidden rounded-full px-2 py-1 text-white flex items-center gap-1 text-xs font-semibold">
+    <button onclick="quoteSelectedText(event)" class="px-2.5 py-1 rounded-full hover:bg-white/15 transition flex items-center gap-1.5">
+      <span class="text-crimson font-bold">“</span>
+      <span>Quote in Note</span>
+    </button>
+    <div class="w-[1px] h-3.5 bg-white/20"></div>
+    <button onclick="speakSelectedText(event)" class="px-2.5 py-1 rounded-full hover:bg-white/15 transition flex items-center gap-1">
+      <span>▶</span>
+      <span>Listen</span>
+    </button>
+    <div class="w-[1px] h-3.5 bg-white/20"></div>
+    <button onclick="copySelectedText(event)" class="px-2.5 py-1 rounded-full hover:bg-white/15 transition">
+      Copy
+    </button>
+  </div>
+
+  <!-- Unified Spatial Header with Integrated Dynamic Island Slot (Zero Collision) -->
+  <header class="sticky top-0 z-40 ios-glass border-b border-[#A51C30]/75 transition-all">
+    <div class="max-w-5xl mx-auto px-3.5 sm:px-6 h-[74px] flex items-center justify-between gap-2">
+      <!-- Brand Identity -->
+      <a href="#story/confronting-ai-michael-brenner" onclick="navigateTo('story', 'confronting-ai-michael-brenner'); return false;" class="flex items-center gap-2.5 sm:gap-3 group focus:outline-none ios-press shrink-0">
+        <div class="w-[42px] h-[42px] sm:w-[45px] sm:h-[45px] border-[2.5px] border-crimson flex-shrink-0 transition-all duration-300 group-hover:scale-[1.05] group-hover:shadow-[0_0_20px_rgba(165,28,48,0.3)] relative flex items-center justify-center bg-white/25 backdrop-blur-md">
+          <span class="w-1.5 h-1.5 bg-crimson opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+        </div>
+        <div class="flex flex-col font-sans font-bold text-[15px] sm:text-[16px] leading-[1.02] tracking-[-0.025em]" style="color: var(--text-ink);">
+          <span>The</span>
+          <span>Harvard</span>
+          <span>Gazette</span>
+        </div>
+      </a>
+
+      <!-- Center Slot: Integrated Morphing Dynamic Island -->
+      <div id="dynamic-island-wrapper" class="relative flex items-center justify-center z-50 min-w-0">
+        <div id="dynamic-island" class="island-compact text-white rounded-full px-3 sm:px-3.5 py-1.5 select-none">
+          <!-- Compact Capsule State -->
+          <div id="island-compact-view" onclick="toggleDynamicIslandExpand(event)" class="cursor-pointer flex items-center justify-between gap-2 sm:gap-2.5">
+            <div class="flex items-center gap-2 min-w-0">
+              <span id="island-dot" class="w-2 h-2 rounded-full bg-crimson animate-pulse shrink-0"></span>
+              <span id="island-label" class="text-[11px] font-semibold tracking-tight text-stone-100 truncate max-w-[125px] sm:max-w-[220px] md:max-w-[260px]">Confronting AI • Brenner</span>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span id="island-pct" class="text-[10px] font-mono font-bold text-white bg-crimson/90 border border-white/20 px-2 py-0.5 rounded-full shadow-xs">8 min</span>
+            </div>
+          </div>
+
+          <!-- Expanded Morphing Spatial Console (Floats cleanly below header bar) -->
+          <div id="island-expanded-view" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2.5 pt-3.5 pb-3.5 px-4 text-left w-[315px] sm:w-[368px] max-w-[92vw] rounded-[28px] bg-[#0D0E14]/95 backdrop-blur-2xl border border-white/15 shadow-[0_28px_60px_rgba(0,0,0,0.55)] view-transition">
+            <div class="flex items-center justify-between pb-2.5 border-b border-white/12">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-crimson animate-ping"></span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.16em] text-stone-300">Spatial Reading Activity</span>
+              </div>
+              <button onclick="toggleDynamicIslandExpand(event)" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-[11px] text-stone-300 transition">✕</button>
+            </div>
+            <div class="mt-3 flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p id="island-exp-title" class="font-serif font-semibold text-xs text-white truncate">‘I don’t know if this is going to turn out well.’</p>
+                <p id="island-exp-meta" class="text-[11px] text-stone-400 mt-0.5">Sy Boles • 8 min read</p>
+              </div>
+              <button onclick="toggleAudioNarration(currentSlug); event.stopPropagation();" class="px-3 py-1.5 rounded-full liquid-crimson-btn text-[11px] font-bold flex items-center gap-1.5 shrink-0 ios-press">
+                <span id="island-audio-btn-label">▶ Listen</span>
+              </button>
+            </div>
+            <div class="mt-3 grid grid-cols-3 gap-1.5 pt-2.5 border-t border-white/10 text-[10px] font-semibold">
+              <button onclick="navigateTo('story', 'confronting-ai-michael-brenner'); closeDynamicIsland();" class="py-1.5 px-2 rounded-xl bg-white/10 hover:bg-white/20 text-stone-100 truncate transition">Featured AI</button>
+              <button onclick="navigateTo('home'); closeDynamicIsland();" class="py-1.5 px-2 rounded-xl bg-white/10 hover:bg-white/20 text-stone-100 truncate transition">All Stories (9)</button>
+              <button onclick="navigateTo('saved'); closeDynamicIsland();" class="py-1.5 px-2 rounded-xl bg-white/10 hover:bg-white/20 text-stone-100 truncate transition">Queue (<span id="island-queue-count">3</span>)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center shrink-0">
+        <div class="relative" id="appearance-container">
+          <button onclick="toggleAppearancePopover(event)" aria-label="Reading appearance settings" title="Liquid Glass Reading Studio" class="px-2.5 sm:px-3 py-2 text-crimson hover:bg-crimson/10 rounded-full transition-colors font-serif font-semibold text-sm flex items-center gap-1 ios-press">
+            <span>Aa</span>
+          </button>
+          <div id="appearance-popover" class="hidden absolute right-0 mt-3 w-80 sm:w-84 rounded-[28px] ios-dock-glass p-5 z-50 view-transition" style="color: var(--text-ink);">
+            <div class="flex items-center justify-between pb-3 border-b" style="border-color: var(--border-tone);">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-crimson"></span>
+                <span class="text-[11px] font-bold uppercase tracking-[0.14em] text-crimson">Liquid Glass Studio</span>
+              </div>
+              <button onclick="toggleAppearancePopover(event)" class="w-6 h-6 rounded-full theme-subtle flex items-center justify-center text-xs opacity-75 hover:opacity-100 ios-press">✕</button>
+            </div>
+
+            <div class="mt-3.5">
+              <p class="text-[11px] font-semibold opacity-70 mb-2">Optical Surface Atmosphere</p>
+              <div class="grid grid-cols-4 gap-1.5">
+                <button onclick="setReaderTheme('paper')" id="theme-btn-paper" class="py-2 px-1.5 rounded-2xl border text-[11px] font-semibold flex flex-col items-center gap-1 bg-[#FAF8F5] text-[#111111] border-crimson ios-press">
+                  <span class="w-4 h-4 rounded-full bg-[#FAF8F5] border border-stone-400"></span>
+                  <span>Paper</span>
+                </button>
+                <button onclick="setReaderTheme('ios')" id="theme-btn-ios" class="py-2 px-1.5 rounded-2xl border text-[11px] font-semibold flex flex-col items-center gap-1 bg-[#EEF0F6] text-[#000000] border-stone-300 ios-press">
+                  <span class="w-4 h-4 rounded-full bg-white border border-stone-400"></span>
+                  <span>iOS Glass</span>
+                </button>
+                <button onclick="setReaderTheme('sepia')" id="theme-btn-sepia" class="py-2 px-1.5 rounded-2xl border text-[11px] font-semibold flex flex-col items-center gap-1 bg-[#F4ECD8] text-[#251E18] border-stone-300 ios-press">
+                  <span class="w-4 h-4 rounded-full bg-[#E5D6B8] border border-stone-500"></span>
+                  <span>Sepia</span>
+                </button>
+                <button onclick="setReaderTheme('midnight')" id="theme-btn-midnight" class="py-2 px-1.5 rounded-2xl border text-[11px] font-semibold flex flex-col items-center gap-1 bg-[#12141C] text-[#F5F2EB] border-stone-700 ios-press">
+                  <span class="w-4 h-4 rounded-full bg-[#07080C] border border-stone-500"></span>
+                  <span>Spatial</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <p class="text-[11px] font-semibold opacity-70 mb-2">Editorial Typeface</p>
+              <div class="grid grid-cols-2 gap-1.5 p-1 rounded-2xl theme-subtle border">
+                <button onclick="setBodyFont('sans')" id="font-btn-sans" class="py-1.5 px-3 rounded-xl text-xs font-sans font-semibold transition ios-press">
+                  SF / Inter Sans
+                </button>
+                <button onclick="setBodyFont('serif')" id="font-btn-serif" class="py-1.5 px-3 rounded-xl text-xs font-serif font-semibold transition ios-press">
+                  Gazette Serif
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="flex items-center justify-between text-[11px] font-semibold opacity-70 mb-2">
+                <span>Dynamic Type Scale</span>
+                <span id="font-scale-label" class="font-mono text-crimson font-bold">100%</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1.5 p-1 rounded-2xl theme-subtle border">
+                <button onclick="setFontSizeStep(0)" id="size-btn-0" class="py-1.5 rounded-xl text-xs font-medium ios-press">A-</button>
+                <button onclick="setFontSizeStep(1)" id="size-btn-1" class="py-1.5 rounded-xl text-xs font-bold ios-press">100%</button>
+                <button onclick="setFontSizeStep(2)" id="size-btn-2" class="py-1.5 rounded-xl text-xs font-medium ios-press">A+</button>
+                <button onclick="setFontSizeStep(3)" id="size-btn-3" class="py-1.5 rounded-xl text-xs font-medium ios-press">XL</button>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t" style="border-color: var(--border-tone);">
+              <div class="flex items-center justify-between text-[11px] font-semibold opacity-75 mb-2">
+                <span>Optical Refraction Depth</span>
+                <span id="blur-depth-label" class="font-mono text-crimson font-bold">Balanced</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 p-1 rounded-2xl theme-subtle border">
+                <button onclick="setGlassDepth('subtle')" id="blur-btn-subtle" class="py-1 rounded-xl text-[11px] font-medium ios-press">Subtle</button>
+                <button onclick="setGlassDepth('balanced')" id="blur-btn-balanced" class="py-1 rounded-xl text-[11px] font-bold ios-press">Balanced</button>
+                <button onclick="setGlassDepth('prismatic')" id="blur-btn-prismatic" class="py-1 rounded-xl text-[11px] font-medium ios-press">Prismatic</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="h-5 w-[1px] bg-stone-400/40 mx-1 sm:mx-1.5"></div>
+        <button onclick="toggleMenuDrawer()" aria-label="Open menu" class="p-2 sm:p-2.5 text-crimson hover:bg-crimson/10 rounded-full transition-colors ios-press">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <line x1="4" y1="7" x2="20" y2="7"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="17" x2="20" y2="17"></line>
+          </svg>
+        </button>
+        <div class="h-5 w-[1px] bg-stone-400/40 mx-1 sm:mx-1.5"></div>
+        <button onclick="toggleSearchModal()" aria-label="Search stories" title="Spotlight Search (⌘K)" class="p-2 sm:p-2.5 text-crimson hover:bg-crimson/10 rounded-full transition-colors flex items-center gap-1.5 ios-press">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="20" y1="20" x2="16.35" y2="16.35"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="menu-drawer" class="fixed inset-0 z-50 hidden">
+    <div onclick="toggleMenuDrawer()" class="fixed inset-0 bg-black/40 backdrop-blur-md transition-opacity"></div>
+    <aside class="fixed top-2 right-2 bottom-2 w-80 max-w-[88vw] ios-dock-glass rounded-[30px] z-10 p-6 flex flex-col justify-between overflow-y-auto pb-28 view-transition" style="color: var(--text-ink);">
+      <div>
+        <div class="flex items-center justify-between pb-5 border-b" style="border-color: var(--border-tone);">
+          <div class="flex items-center gap-2.5">
+            <div class="w-6 h-6 border-2 border-crimson bg-crimson/10"></div>
+            <span class="font-bold text-xs uppercase tracking-[0.14em]">The Harvard Gazette</span>
+          </div>
+          <button onclick="toggleMenuDrawer()" class="w-7 h-7 rounded-full theme-subtle flex items-center justify-center text-xs font-bold ios-press">✕</button>
+        </div>
+
+        <div class="mt-6 space-y-2">
+          <button onclick="navigateTo('story', 'confronting-ai-michael-brenner'); toggleMenuDrawer();" class="w-full text-left px-4 py-3 rounded-2xl theme-subtle flex items-center justify-between font-semibold text-sm hover:border-crimson border transition ios-press">
+            <span>Confronting AI: Brenner</span>
+            <span class="liquid-crimson-btn text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Featured</span>
+          </button>
+          <button onclick="navigateTo('home'); toggleMenuDrawer();" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-crimson/10 transition font-medium text-sm ios-press">
+            All Stories (Vibrant Feed)
+          </button>
+          <button onclick="navigateTo('saved'); toggleMenuDrawer();" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-crimson/10 transition font-medium text-sm flex items-center justify-between ios-press">
+            <span>Saved Reading Queue</span>
+            <span id="drawer-saved-badge" class="liquid-crimson-btn text-white text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+          </button>
+        </div>
+
+        <div class="mt-7 pt-6 border-t" style="border-color: var(--border-tone);">
+          <p class="text-[11px] font-bold uppercase tracking-[0.15em] opacity-60 mb-3">Vibrant Repository Stories</p>
+          <div id="drawer-story-links" class="space-y-1.5"></div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t text-xs opacity-75" style="border-color: var(--border-tone);">
+        <p class="font-semibold">Liquid Glass Editorial Reader v3</p>
+        <p class="mt-1">Harvard Gazette UI • Optical Refraction & Spatial Motion.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Floating Liquid Glass Bottom Dock -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[92vw] max-w-[420px] pointer-events-auto">
+    <div id="liquid-bottom-dock" class="ios-dock-glass rounded-full p-1.5 flex items-center justify-between gap-1">
+      <button onclick="navigateTo('story', 'confronting-ai-michael-brenner')" id="dock-brenner" class="flex-1 py-2 px-2.5 rounded-full flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-all ios-press">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>Featured</span>
+      </button>
+      <button onclick="navigateTo('home')" id="dock-home" class="flex-1 py-2 px-2.5 rounded-full flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-all ios-press">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="14" y2="13"/></svg>
+        <span>All (9)</span>
+      </button>
+      <button onclick="navigateTo('saved')" id="dock-saved" class="flex-1 py-2 px-2.5 rounded-full flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-all ios-press relative">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+        <span>Saved</span>
+        <span id="dock-saved-badge" class="absolute top-1 right-3 bg-crimson text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">3</span>
+      </button>
+      <button onclick="toggleAppearancePopover(event)" class="flex-1 py-2 px-2.5 rounded-full flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-all ios-press opacity-80 hover:opacity-100">
+        <span class="font-serif font-bold text-sm leading-none">Aa</span>
+        <span>Studio</span>
+      </button>
+      <button onclick="toggleSearchModal()" class="flex-1 py-2 px-2.5 rounded-full flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-all ios-press opacity-80 hover:opacity-100">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.35" y2="16.35"/></svg>
+        <span>Search</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="search-modal" class="fixed inset-0 z-50 hidden">
+    <div onclick="toggleSearchModal()" class="fixed inset-0 bg-black/45 backdrop-blur-md"></div>
+    <div class="relative max-w-xl mx-auto mt-16 sm:mt-24 ios-dock-glass rounded-[28px] overflow-hidden z-10 mx-4 view-transition" style="color: var(--text-ink);">
+      <div class="p-4 sm:p-5 border-b flex items-center gap-3" style="border-color: var(--border-tone);">
+        <svg class="w-5 h-5 text-crimson shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke-width="2.2"/><line x1="20" y1="20" x2="16.35" y2="16.35" stroke-width="2.2"/></svg>
+        <input id="search-input" type="text" placeholder="Search by title, author, topic, or quote..." oninput="handleModalSearch(this.value)" class="w-full bg-transparent placeholder-stone-400 focus:outline-none text-base font-medium" style="color: var(--text-ink);" />
+        <button onclick="toggleSearchModal()" class="text-[10px] font-bold uppercase tracking-wider opacity-75 hover:opacity-100 px-2.5 py-1 rounded-full theme-subtle border ios-press">ESC</button>
+      </div>
+      <div id="search-results" class="max-h-[60vh] overflow-y-auto divide-y" style="border-color: var(--border-tone);"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Liquid Glass Toast & Reference Citation HUD -->
+  <div id="reference-toast" class="fixed bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-sm z-50 hidden bg-[#0D0E12]/92 backdrop-blur-2xl text-[#FAF8F5] border border-white/20 border-l-4 border-l-crimson rounded-[24px] shadow-[0_24px_48px_rgba(0,0,0,0.48)] p-4 transition-all duration-300 view-transition">
+    <div class="flex items-start justify-between gap-3">
+      <div class="min-w-0">
+        <div class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-crimson shrink-0"></span>
+          <p id="ref-toast-title" class="text-[11px] font-bold uppercase tracking-wider text-crimson truncate"></p>
+        </div>
+        <p id="ref-toast-body" class="text-xs text-stone-200 mt-1.5 leading-relaxed"></p>
+        <div id="ref-toast-actions" class="hidden mt-2.5 pt-2 border-t border-white/10 flex items-center gap-3">
+          <button onclick="citeActiveReferenceInNote()" class="text-[11px] font-bold text-crimson hover:underline flex items-center gap-1">
+            <span>＋ Cite in Marginalia</span>
+          </button>
+        </div>
+      </div>
+      <button onclick="hideReferenceToast()" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-stone-300 hover:text-white text-xs shrink-0">✕</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main id="app-content" class="flex-grow relative z-10"></main>
+
+  <footer class="relative z-10 bg-[#0D0E12]/95 backdrop-blur-xl text-[#FAF8F5] mt-20 border-t-2 border-crimson">
+    <div class="max-w-5xl mx-auto px-5 py-12">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-8 border-b border-stone-800/80">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 border-2 border-crimson bg-crimson/10"></div>
+          <div class="font-bold text-sm leading-tight tracking-tight">
+            <div>The</div>
+            <div>Harvard</div>
+            <div>Gazette</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-5 text-xs font-medium text-stone-400">
+          <a href="#home" onclick="navigateTo('home'); return false;" class="hover:text-white transition">All Stories</a>
+          <a href="#story/confronting-ai-michael-brenner" onclick="navigateTo('story', 'confronting-ai-michael-brenner'); return false;" class="hover:text-white transition">Confronting AI</a>
+          <a href="#story/the-quiet-work-of-paying-attention" onclick="navigateTo('story', 'the-quiet-work-of-paying-attention'); return false;" class="hover:text-white transition">Editorial Essays</a>
+          <a href="#saved" onclick="navigateTo('saved'); return false;" class="hover:text-white transition">Saved Queue</a>
+        </div>
+      </div>
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
+        <p>© 2026 The President and Fellows of Harvard College • Liquid Glass Editorial Edition</p>
+        <p>Engineered with optical refraction, specular lighting & spring physics</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const SVG_COVERS = {
+      "brenner-chalkboard": `
+        <div class="relative w-full aspect-[16/10] bg-[#2B3036] overflow-hidden select-none">
+          <svg class="absolute inset-0 w-full h-full object-cover" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="boardGlow" cx="50%" cy="45%" r="65%">
+                <stop offset="0%" stop-color="#4A525A" />
+                <stop offset="60%" stop-color="#2E3338" />
+                <stop offset="100%" stop-color="#1C2024" />
+              </radialGradient>
+            </defs>
+            <rect width="800" height="500" fill="url(#boardGlow)" />
+            <ellipse cx="260" cy="210" rx="220" ry="130" fill="#ffffff" opacity="0.08" />
+            <ellipse cx="560" cy="260" rx="190" ry="140" fill="#ffffff" opacity="0.06" />
+            <g fill="rgba(245,242,235,0.48)" stroke="rgba(245,242,235,0.35)" stroke-width="0.6" font-family="serif" font-style="italic">
+              <text x="55" y="135" font-size="24">ε y'' + x² y' - x y = 0</text>
+              <text x="390" y="128" font-size="22">= 0</text>
+              <text x="52" y="178" font-size="22">y(0) = 2,   y(1) = -1</text>
+              <text x="410" y="175" font-size="20">(y + y₁ + y₂) / ∂t²</text>
+              <text x="98" y="242" font-size="23">x² y' = x y</text>
+              <text x="385" y="245" font-size="21">∫ ∂x - ln(y) + tan(ξ)</text>
+              <text x="105" y="295" font-size="20">y_outer = ?</text>
+              <text x="92" y="346" font-size="23">X = ∂x / ∂t</text>
+              <text x="580" y="160" font-size="19">∇ · u = 0</text>
+              <text x="540" y="225" font-size="20">∂u/∂t + (u·∇)u = -∇p + ν∇²u</text>
+              <path d="M 650 85 Q 720 40 780 95" fill="none" stroke="rgba(245,242,235,0.4)" stroke-width="2" />
+              <circle cx="755" cy="180" r="32" fill="none" stroke="rgba(245,242,235,0.35)" stroke-width="1.8" />
+              <circle cx="775" cy="275" r="38" fill="none" stroke="rgba(245,242,235,0.35)" stroke-width="1.8" />
+            </g>
+          </svg>
+          <div class="absolute inset-0 flex items-end justify-center pointer-events-none">
+            <svg class="w-[330px] sm:w-[380px] h-[92%] translate-y-2" viewBox="0 0 360 420" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="sweaterGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8D2B2A" />
+                  <stop offset="55%" stop-color="#6E1E1E" />
+                  <stop offset="100%" stop-color="#4A1212" />
+                </linearGradient>
+                <linearGradient id="skinGrad" x1="0" y1="0" x2="1" y2="0.8">
+                  <stop offset="0%" stop-color="#F2C8B0" />
+                  <stop offset="65%" stop-color="#DFA88C" />
+                  <stop offset="100%" stop-color="#C68B6E" />
+                </linearGradient>
+              </defs>
+              <path d="M 48 420 L 66 285 C 72 252 105 236 142 230 L 218 230 C 255 236 288 252 294 285 L 312 420 Z" fill="url(#sweaterGrad)" />
+              <path d="M 95 280 L 82 420 M 265 280 L 278 420 M 135 255 Q 180 272 225 255" stroke="#3D0E0E" stroke-width="2.5" fill="none" opacity="0.55" />
+              <path d="M 140 228 Q 180 256 220 228 L 214 238 Q 180 264 146 238 Z" fill="#2B2E2B" />
+              <path d="M 134 228 Q 180 262 226 228" fill="none" stroke="#5B1616" stroke-width="8" stroke-linecap="round" />
+              <path d="M 152 195 L 148 232 Q 180 248 212 232 L 208 195 Z" fill="url(#skinGrad)" />
+              <ellipse cx="131" cy="148" rx="8" ry="16" fill="#D59B7E" />
+              <ellipse cx="229" cy="148" rx="8" ry="16" fill="#C68B6E" />
+              <path d="M 134 110 C 134 78 226 78 226 110 C 228 148 223 185 204 202 C 190 214 170 214 156 202 C 137 185 132 148 134 110 Z" fill="url(#skinGrad)" />
+              <path d="M 148 128 Q 160 124 171 127" fill="none" stroke="#3A2E28" stroke-width="3.2" stroke-linecap="round" />
+              <path d="M 189 127 Q 200 124 212 128" fill="none" stroke="#3A2E28" stroke-width="3.2" stroke-linecap="round" />
+              <ellipse cx="160" cy="137" rx="5.5" ry="3.5" fill="#2A201C" />
+              <ellipse cx="200" cy="137" rx="5.5" ry="3.5" fill="#2A201C" />
+              <circle cx="158.5" cy="136" r="1.2" fill="#ffffff" />
+              <circle cx="198.5" cy="136" r="1.2" fill="#ffffff" />
+              <path d="M 180 135 L 178 162 Q 180 167 187 164" fill="none" stroke="#B47659" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M 163 179 Q 180 184 197 179" fill="none" stroke="#9E5B42" stroke-width="2.6" stroke-linecap="round" />
+              <path d="M 129 128 C 122 95 138 66 168 62 C 195 58 225 68 232 95 C 236 110 233 122 228 130 C 226 108 216 96 198 94 C 178 92 155 96 142 106 C 136 112 133 120 129 128 Z" fill="#231D1B" />
+            </svg>
+          </div>
+        </div>
+      `,
+      "quiet": `
+        <svg viewBox="0 0 1200 760" class="w-full h-full object-cover" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="760" fill="#F1E8DC"/>
+          <circle cx="942" cy="172" r="228" fill="#D9B79A" fill-opacity="0.58"/>
+          <path d="M0 572C195 500 355 487 540 532C725 577 926 565 1200 448V760H0V572Z" fill="#C97E5D" fill-opacity="0.45"/>
+          <rect x="132" y="118" width="496" height="516" rx="28" fill="#FAF6F0" stroke="#1F1A17" stroke-opacity="0.12" stroke-width="2"/>
+          <line x1="198" y1="224" x2="540" y2="224" stroke="#1F1A17" stroke-opacity="0.22" stroke-width="3"/>
+          <line x1="198" y1="286" x2="492" y2="286" stroke="#1F1A17" stroke-opacity="0.16" stroke-width="2"/>
+          <line x1="198" y1="322" x2="514" y2="322" stroke="#1F1A17" stroke-opacity="0.16" stroke-width="2"/>
+          <circle cx="288" cy="466" r="64" fill="#9E3D22" fill-opacity="0.82"/>
+        </svg>
+      `,
+      "design": `
+        <svg viewBox="0 0 1200 760" class="w-full h-full object-cover" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="760" fill="#ECE4D8"/>
+          <rect x="116" y="96" width="968" height="568" rx="34" fill="#F8F4EE" stroke="#221D19" stroke-opacity="0.12" stroke-width="2"/>
+          <rect x="190" y="176" width="276" height="408" rx="20" fill="#D8C2AC"/>
+          <rect x="514" y="176" width="486" height="184" rx="20" fill="#B55B3C" fill-opacity="0.82"/>
+          <rect x="514" y="396" width="228" height="188" rx="20" fill="#2A473E" fill-opacity="0.85"/>
+          <rect x="772" y="396" width="228" height="188" rx="20" fill="#E6D8C7"/>
+        </svg>
+      `,
+      "internet": `
+        <svg viewBox="0 0 1200 760" class="w-full h-full object-cover" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="760" fill="#E8E4DC"/>
+          <circle cx="386" cy="380" r="244" stroke="#203A33" stroke-opacity="0.28" stroke-width="3"/>
+          <circle cx="628" cy="380" r="244" stroke="#9E3D22" stroke-opacity="0.34" stroke-width="3"/>
+          <circle cx="814" cy="380" r="184" fill="#D59B78" fill-opacity="0.38"/>
+          <path d="M180 560C380 380 820 380 1020 560" stroke="#1E1A17" stroke-opacity="0.28" stroke-width="4"/>
+          <circle cx="386" cy="380" r="18" fill="#203A33"/>
+          <circle cx="628" cy="380" r="18" fill="#9E3D22"/>
+        </svg>
+      `,
+      "city": `
+        <svg viewBox="0 0 1200 760" class="w-full h-full object-cover" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="760" fill="#EFE7DC"/>
+          <circle cx="946" cy="186" r="102" fill="#C96442" fill-opacity="0.72"/>
+          <rect x="118" y="310" width="148" height="340" fill="#354C43"/>
+          <rect x="294" y="232" width="184" height="418" fill="#221D1A"/>
+          <rect x="510" y="352" width="154" height="298" fill="#9E3D22"/>
+          <rect x="694" y="268" width="212" height="382" fill="#C8B29B"/>
+          <rect x="934" y="388" width="148" height="262" fill="#463D36"/>
+          <rect y="648" width="1200" height="112" fill="#D9CBB8"/>
+        </svg>
+      `,
+      "begin": `
+        <svg viewBox="0 0 1200 760" class="w-full h-full object-cover" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="760" fill="#F2EAE0"/>
+          <path d="M140 610C294 316 544 176 1048 164" stroke="#9E3D22" stroke-width="18" stroke-linecap="round"/>
+          <path d="M168 648C410 468 650 398 1034 416" stroke="#233E36" stroke-opacity="0.65" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="290" cy="436" r="88" fill="#E3B596" fill-opacity="0.7"/>
+        </svg>
+      `,
+      "objects": `
+        <svg viewBox="0 0 1200 760" class="w-full h-full object-cover" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="760" fill="#EDE3D5"/>
+          <ellipse cx="420" cy="542" rx="238" ry="52" fill="#C7B29B" fill-opacity="0.55"/>
+          <path d="M312 246C312 206 344 174 384 174H456C496 174 528 206 528 246V492C528 525 501 552 468 552H372C339 552 312 525 312 492V246Z" fill="#A5482A"/>
+          <path d="M528 264H584C626 264 660 298 660 340C660 382 626 416 584 416H528" stroke="#A5482A" stroke-width="28"/>
+          <rect x="694" y="294" width="236" height="258" rx="28" fill="#F8F4ED" stroke="#221D19" stroke-opacity="0.16" stroke-width="3"/>
+        </svg>
+      `
+    };
+
+    const ARTICLE_REFERENCES = {
+      "brenner": {
+        title: "Michael P. Brenner",
+        desc: "Catalyst Professor at Harvard University, Michael F. Cronin Professor of Applied Mathematics and Applied Physics at SEAS, and Research Scientist at Google."
+      },
+      "navier-stokes": {
+        title: "Navier-Stokes Existence & Smoothness",
+        desc: "One of the seven Millennium Prize Problems in mathematics concerning the mathematical properties of fluid mechanics equations."
+      },
+      "riemann": {
+        title: "The Riemann Hypothesis",
+        desc: "Conjectured in 1859 by Bernhard Riemann regarding the nontrivial zeros of the Riemann zeta function; considered one of the hardest open problems in pure mathematics."
+      },
+      "boaz-barak": {
+        title: "Boaz Barak",
+        desc: "Gordon McKay Professor of Computer Science at Harvard SEAS and Catalyst Professor working on machine learning theory and AI alignment."
+      }
+    };
+
+    const STORIES = [
+      {
+        slug: "confronting-ai-michael-brenner",
+        title: "‘I don’t know if this is going to turn out well.’",
+        subtitle: "With a split-screen view of a turbulent tech revolution, Michael Brenner makes a case for the value of human guidance",
+        excerpt: "Michael Brenner is one of Harvard’s inaugural Catalyst Professors, contemplating what it means to do math and science in the age of AI.",
+        seriesIntro: "This is the first installment in “Confronting AI,” a series of faculty interviews contemplating a new age of disruption.",
+        category: "SCIENCE & TECH",
+        publishedAt: "October 14, 2026",
+        readingTime: "8 min read",
+        featured: true,
+        isGazetteOriginal: true,
+        coverKey: "brenner-chalkboard",
+        captionName: "Michael Brenner.",
+        captionCredit: "Stephanie Mitchell/Harvard Staff Photographer",
+        author: {
+          name: "Sy Boles",
+          role: "Harvard Staff Writer",
+          bio: "Covers science, engineering, and artificial intelligence across Harvard University.",
+          location: "Cambridge, MA"
+        },
+        stats: {
+          claps: "2.4k",
+          responses: "64",
+          bookmarks: "910"
+        },
+        keyTakeaways: [
+          "Universities remain essential as unbiased arbiters of truth in an age of automated proofs.",
+          "AI makes domain experts and graduate students more necessary, not obsolete.",
+          "Bridging academia and frontier labs helps guide students and address existential governance risks."
+        ],
+        pullQuote: "“I’m all for listening to the opinions of any entity that has opinions. But I don’t think machines can be the arbiters of truth.”",
+        gazetteHtml: `
+          <p>
+            <a href="#brenner" onclick="showReference('brenner'); return false;" class="article-link">Michael Brenner</a> is one of Harvard’s inaugural Catalyst Professors, a role designed to foster collaboration between the University and the private sector — in his case, at Google. Brenner, who has appointments in Harvard physics and at SEAS, has been thinking deeply about what it means to do math and science in the age of AI, how to teach students, and the value of collaborating with industry. We talked to him about the role of universities in this uncertain moment in the history of knowledge.
+          </p>
+
+          <div class="flex items-center justify-center gap-3.5 my-10" aria-hidden="true">
+            <span class="w-4 h-4 bg-crimson inline-block"></span>
+            <span class="w-4 h-4 bg-crimson inline-block"></span>
+            <span class="w-4 h-4 bg-crimson inline-block"></span>
+          </div>
+
+          <p class="font-bold" style="color: var(--text-ink);">
+            Gazette: There’s been a lot of discussion about the role of universities in the age of artificial intelligence. Many people think that part of it is to be a kind of moral force, a defender of human values in the face of automation. What do you make of that?
+          </p>
+
+          <p>
+            <strong class="font-bold">Brenner:</strong> I can’t talk about morality. But let me give you my version of that.
+          </p>
+
+          <p>
+            Obviously, the type of work that’s building out the LLM systems is simply impractical for a university, even Harvard, to lead at — just look at the cost of a data center. But we have an absolutely central role, both universities in general and Harvard in particular, which is that we’re arbiters of truth.
+          </p>
+
+          <p>
+            The example I would give is that when the <a href="#navier-stokes" onclick="showReference('navier-stokes'); return false;" class="article-link">Navier-Stokes result</a> came out — and this is something that I worked on when I was a graduate student — I dropped everything to find out if it’s correct.
+          </p>
+
+          <p>
+            I basically spent five days working on it, and although I’m not quite convinced that it’s correct, it’s clear to me that progress has been made. But I think the world has been much too quick to declare that because the computer-assisted proof by an LLM has solved one of the major open problems in mathematics, that therefore the solution is actually true.
+          </p>
+
+          <p>
+            I mean, I’m not the arbiter — the world is going to have to decide when progress has been made, when arguments are true. We have to decide when the directions are correct. Maybe morality does come into it. So all right, fine, we’ve arrived at morality.
+          </p>
+
+          <p class="font-bold pt-2" style="color: var(--text-ink);">
+            What should universities be doing?
+          </p>
+
+          <p>
+            There should be professors who are committed to the pursuit of knowledge, genuine understanding, without bias, for what is true and what is important, and we should be educating students to do that. That’s our job. And if there are machines that have opinions on that, great. I’m all for listening to the opinions of any entity that has opinions. But I don’t think machines can be the arbiters of truth.
+          </p>
+
+          <blockquote class="my-10 pl-6 border-l-[6px] border-crimson py-0.5">
+            <p class="!font-serif !text-[26px] sm:!text-[29px] !leading-[1.24] !mb-0 tracking-[-0.015em]" style="color: var(--text-ink);">
+              “I’m all for listening to the opinions of any entity that has opinions. But I don’t think machines can be the arbiters of truth.”
+            </p>
+          </blockquote>
+
+          <p>
+            In my view, the role of Harvard, and the role of universities in general, is even more important than it was before.
+          </p>
+
+          <p>
+            I don’t really have much patience for the party line you’ll hear in the newspapers, which is that now that we have machines that can do science, do we really need graduate students? I think the answer is that we need more graduate students, not less. The reason is that graduate students should be more effective now. The Harvard Math Department should be doing better in 10 years than it did in the last 10 years because either they’ll decide these tools are bullshit and they won’t use them, or they’ll figure out how to use them to advance mathematics.
+          </p>
+
+          <p class="font-bold pt-2" style="color: var(--text-ink);">
+            You mentioned the party line that shows up in press reports. Can you articulate what that argument is, and why you think it’s wrong?
+          </p>
+
+          <p>
+            The party line is that now that we have AI, fields like mathematics are being transformed. Problems that have been open for 50 years are being solved, and we humans can’t understand the solution, and isn’t it amazing that AI solved it? The party line is that this is where we’re going as a society — that intelligence is going to be entrusted to machines, and that’s where all knowledge is going to come from, so we don’t need people, we don’t need to train experts in mathematics and physics and chemistry. And I just don’t believe that at all.
+          </p>
+
+          <p>
+            The expert is actually more important. Because anyone can <em class="italic">think</em> that they solved the <a href="#riemann" onclick="showReference('riemann'); return false;" class="article-link">Riemann hypothesis</a>, but we need experts who can actually figure out if that’s true.
+          </p>
+
+          <p class="font-bold pt-2" style="color: var(--text-ink);">
+            For a lot of people, it’s scary to hear these companies saying they’re building things that might kill us all, might put us out of work, might already be escaping our control — but look! It can also make you a meal plan! It’s a hard vision to get on board with.
+          </p>
+
+          <p>
+            I say this as a person who’s talking to you from the Google Cambridge office, and I understand — or I think I understand — what the state of the art is. So I’m biased. But I also think these things are dangerous. I do not think this is a joke. I’m really worried. I spend part of my time working on AI safety for this reason: I cannot morally do what I do without trying to figure this out. Until now, it’s taken deep knowledge to use science to cause harm. We’re transitioning to a society where maybe you don’t need somebody like me, a physicist with deep knowledge. This is an extraordinary risk to society.
+          </p>
+
+          <p>
+            The governments of the world are going to have to figure out how to deal with this, and that cuts back to Harvard.
+          </p>
+
+          <p>
+            We have on one hand a technical problem, and on the other hand a governance problem that demands real expertise.
+          </p>
+
+          <blockquote class="my-10 pl-6 border-l-[6px] border-crimson py-0.5">
+            <p class="!font-serif !text-[25px] sm:!text-[28px] !leading-[1.24] !mb-0 tracking-[-0.015em]" style="color: var(--text-ink);">
+              “Wouldn’t you like a place where there are deep thinkers with deep knowledge of how to influence government, how to understand physics, how to understand computer science, and who are unbiased, who aren’t doing it to make money, who are just in it to help humanity?”
+            </p>
+          </blockquote>
+
+          <p>
+            Wouldn’t you like a place where there are deep thinkers with deep knowledge of how to influence government, how to understand physics, how to understand computer science, and who are unbiased, who aren’t doing it to make money, who are just in it to help humanity?
+          </p>
+
+          <p class="font-bold pt-2" style="color: var(--text-ink);">
+            Can you take more about your perspective as a Catalyst Professor, with appointments both at Harvard and at Google?
+          </p>
+
+          <p>
+            A big part of the reason I’m at Google is that there are things I can work on here that, to be totally honest, I can’t work on from the University. We have the expertise at Harvard, but we can’t stop an LLM from giving the answers it’s going to give. There’s a level of influence that’s only possible inside these companies.
+          </p>
+
+          <p>
+            I’m also more able to be helpful to my students. I have a class of 120 undergraduates who are worried about getting jobs. They’re asking me, “What do I need to learn to make sure I can be relevant in this world?” If I didn’t spend part of my time at Google, I wouldn’t be able to give them the best advice. At SEAS, we’re really lucky to have both me and <a href="#boaz-barak" onclick="showReference('boaz-barak'); return false;" class="article-link">Boaz Barak</a> with Catalyst appointments. We have a very good view of what’s going on inside both Google and OpenAI, and I can’t believe that’s not a good thing. Boaz is teaching AI alignment and safety directly from first-hand experience.
+          </p>
+        `,
+        responses: [
+          {
+            name: "Dr. Hannah Lin",
+            role: "Applied Mathematician, MIT",
+            comment: "The distinction between generating a computer-assisted proof and verifying genuine mathematical truth is the central question of our decade.",
+            timeAgo: "2 hours ago"
+          },
+          {
+            name: "Marcus Vance",
+            role: "Graduate Fellow, SEAS",
+            comment: "Having faculty who understand both frontier industry compute and academic rigor makes classroom discussions infinitely more grounded.",
+            timeAgo: "5 hours ago"
+          }
+        ]
+      },
+      {
+        slug: "the-quiet-work-of-paying-attention",
+        title: "The Quiet Work of Paying Attention in an Accelerated World",
+        subtitle: "Why deep noticing remains the most radical creative habit we can still practice every day.",
+        excerpt: "Before taste becomes style or strategy, it begins as a slower form of looking—an insistence on staying with things long enough for them to speak back.",
+        seriesIntro: "From the Vibrant Essay Collection on perceptual craft and deliberate attention.",
+        category: "CULTURE & ESSAYS",
+        publishedAt: "April 14, 2026",
+        readingTime: "7 min read",
+        featured: true,
+        coverKey: "quiet",
+        captionName: "Mina Solis in Lisbon.",
+        captionCredit: "Editorial Illustration / Vibrant Studio",
+        author: {
+          name: "Mina Solis",
+          role: "Essayist & Editor at Large",
+          bio: "Writes about attention, visual culture, and the emotional life of everyday tools.",
+          location: "Lisbon"
+        },
+        stats: {
+          claps: "1.8k",
+          responses: "42",
+          bookmarks: "640"
+        },
+        keyTakeaways: [
+          "Attention is not passive consumption; it is an active editorial filter.",
+          "Creative originality often comes from lingering five minutes longer than convenience asks.",
+          "Small daily rituals—field notes, walking without audio, rereading—restore perceptual depth."
+        ],
+        pullQuote: "“What we call inspiration is often just patience that stayed in the room a little longer than habit.”",
+        sections: [
+          {
+            paragraphs: [
+              "Every morning before opening a laptop, I sit by the kitchen window with a pencil and a cheap spiral notebook. Nothing dramatic happens out there. A baker unloads crates of bread, a neighbor shakes out a rug, light slides down the limewashed wall across the street. Yet after ten minutes of writing down only what I can actually see, my mind changes gear.",
+              "Most of our tools are engineered to compress the distance between impulse and reaction. We skim, bookmark, queue, and summarize. In the process, we trade away the texture of encounter—the productive friction of not knowing right away what something means."
+            ]
+          },
+          {
+            heading: "Why Fast Perception Flattens Memory",
+            paragraphs: [
+              "When we look at the world solely to categorize it, memory records labels rather than impressions. A tree becomes 'oak,' a conversation becomes 'productive,' an essay becomes 'three bullet points.' Yet creative work relies almost entirely on the residue that escapes labels: the specific slant of afternoon shadow across a stairwell, or the hesitation before someone answers a difficult question.",
+              "Training ourselves to linger five minutes longer than convenience asks is not nostalgia for a slower century. It is a practical discipline for preserving independent judgment in an environment that profits from our distraction."
+            ]
+          }
+        ],
+        responses: [
+          {
+            name: "Clara Venn",
+            role: "Book Designer",
+            comment: "The distinction between scanning for confirmation and seeing for texture is going straight onto my studio wall.",
+            timeAgo: "3 hours ago"
+          }
+        ]
+      },
+      {
+        slug: "designing-calm-software-for-thinking",
+        title: "Designing Calm Software for People Who Read and Think",
+        subtitle: "What digital products can learn from well-set books, architectural daylight, and generous margins.",
+        excerpt: "Interfaces do not need to shout to feel alive. The best reading tools disappear into rhythm, proportion, and trust.",
+        seriesIntro: "Design & Systems Monograph on quiet typography and humane software.",
+        category: "DESIGN & SYSTEMS",
+        publishedAt: "April 11, 2026",
+        readingTime: "6 min read",
+        coverKey: "design",
+        captionName: "Proportional grid studies.",
+        captionCredit: "Jonas Lindqvist / Studio Archive",
+        author: {
+          name: "Jonas Lindqvist",
+          role: "Principal Product Designer",
+          bio: "Explores humane interfaces, typographic systems, and tactile software craft.",
+          location: "Stockholm"
+        },
+        stats: {
+          claps: "1.2k",
+          responses: "29",
+          bookmarks: "510"
+        },
+        keyTakeaways: [
+          "Whitespace is not empty space; it is acoustic treatment for the mind.",
+          "Warm paper tones reduce visual fatigue during long-form reading.",
+          "Fewer simultaneous actions increase reader confidence and completion."
+        ],
+        pullQuote: "“A page with generous margins tells the reader: nobody here is trying to rush you.”",
+        sections: [
+          {
+            paragraphs: [
+              "Print bookmakers spent centuries solving problems that software teams often treat as brand-new: how wide a column can run before the eye loses its way back to the left margin, how much contrast feels crisp without glaring, and where a note belongs when it interrupts a train of thought.",
+              "When we bring those lessons to the screen, something subtle happens. Users stop defensive scrolling. Their shoulders drop."
+            ]
+          },
+          {
+            heading: "Margins as Acoustic Insulation",
+            paragraphs: [
+              "In architecture, a quiet room is defined not only by what is inside it, but by how effectively its walls absorb street noise. In interface design, generous margins and restrained chrome perform the same acoustic work. Every badge, floating counter, or competing sidebar steals a fraction of working memory from the prose itself.",
+              "Calm software respects the reader's sovereignty. It provides tools—search, saved queues, typographic adjustments—exactly when summoned, and steps gracefully out of sight the moment reading resumes."
+            ]
+          }
+        ],
+        responses: [
+          {
+            name: "Soren Lind",
+            role: "Design Systems Lead",
+            comment: "Framing whitespace as acoustic treatment for the mind is the clearest argument for editorial restraint I have read all year.",
+            timeAgo: "6 hours ago"
+          }
+        ]
+      },
+      {
+        slug: "notes-on-a-slower-internet",
+        title: "Notes on a Slower, Smaller, More Human Internet",
+        subtitle: "Why independent publications, studio letters, and curated archives are thriving again.",
+        excerpt: "Away from algorithmic feeds, a quieter web is being rebuilt around voice, continuity, and finite editions.",
+        seriesIntro: "Technology & Society Dispatch.",
+        category: "TECHNOLOGY",
+        publishedAt: "April 8, 2026",
+        readingTime: "5 min read",
+        coverKey: "internet",
+        captionName: "Network topology sketch.",
+        captionCredit: "Nadia Okafor / London",
+        author: {
+          name: "Nadia Okafor",
+          role: "Technology Columnist",
+          bio: "Covers digital publishing, small-web communities, and cultural infrastructure.",
+          location: "London"
+        },
+        stats: {
+          claps: "960",
+          responses: "19",
+          bookmarks: "390"
+        },
+        keyTakeaways: [
+          "Finite issues create a sense of completion that infinite feeds never allow.",
+          "Readers increasingly value recognizable human point-of-view over synthetic scale.",
+          "Small archives age better than real-time streams."
+        ],
+        pullQuote: "“People are not tired of reading online; they are tired of reading inside a casino.”",
+        sections: [
+          {
+            paragraphs: [
+              "Ask people what they miss about the early web and they rarely mention bandwidth or nostalgia graphics. They mention proportion. Websites felt like rooms made by particular people rather than terminals inside a single mall.",
+              "Across independent journals, university gazettes, and small research collectives, editors are rediscovering the power of the finite edition—a curated set of essays with a clear beginning, middle, and end."
+            ]
+          },
+          {
+            heading: "The Return of the Finite Issue",
+            paragraphs: [
+              "When a publication has edges, reading becomes a completed ritual rather than an endless obligation. You finish an article, save two more for the weekend, and close the tab with a genuine sense of satisfaction."
+            ]
+          }
+        ],
+        responses: []
+      },
+      {
+        slug: "walking-cities-at-dusk",
+        title: "Walking Cities at Dusk: How Streetlight Changes Civic Memory",
+        subtitle: "An urban notebook on twilight, shopfront glow, and the hour when neighborhoods soften.",
+        excerpt: "Between the end of the workday and the closing of shutters, cities reveal how warmly—or harshly—they were built for human company.",
+        seriesIntro: "Urbanism & Civic Architecture Notebook.",
+        category: "CITIES & PLACE",
+        publishedAt: "April 4, 2026",
+        readingTime: "8 min read",
+        coverKey: "city",
+        captionName: "Twilight study in Montreal.",
+        captionCredit: "Eli Moreau / Urban Field Notes",
+        author: {
+          name: "Eli Moreau",
+          role: "Urbanist & Essayist",
+          bio: "Documents public space, pedestrian life, and neighborhood architecture.",
+          location: "Montreal"
+        },
+        stats: {
+          claps: "1.4k",
+          responses: "31",
+          bookmarks: "470"
+        },
+        keyTakeaways: [
+          "Dusk exposes whether a street is designed for lingering or merely passing through.",
+          "Warm ground-floor light creates informal safety and civic intimacy.",
+          "Pedestrian-scale illumination strengthens neighborhood memory."
+        ],
+        pullQuote: "“A street is judged most honestly in the twenty minutes after sunset.”",
+        sections: [
+          {
+            paragraphs: [
+              "At noon, architecture is all geometry and shadow. At dusk, it becomes theater. Bakeries, tailors, libraries, and corner cafés begin casting amber rectangles onto the pavement, turning sidewalks into shared living rooms.",
+              "Walk through any historic university quarter or older neighborhood at twilight and you immediately feel how ground-floor permeability shapes civic trust."
+            ]
+          },
+          {
+            heading: "The Architecture of Warm Windows",
+            paragraphs: [
+              "Where buildings meet the sidewalk with blank glass or harsh floodlights, pedestrians quicken their pace. Where warm interior light spills outward at eye level, strangers slow down, converse, and belong."
+            ]
+          }
+        ],
+        responses: []
+      },
+      {
+        slug: "the-craft-of-first-sentences",
+        title: "The Craft of First Sentences That Invite Rather Than Perform",
+        subtitle: "On openings that establish voice, trust, and rhythm within a single breath.",
+        excerpt: "A great opening line does not wave its arms for attention. It opens a door and lets the reader hear the room inside.",
+        seriesIntro: "Books & Literary Craft Series.",
+        category: "BOOKS & WRITING",
+        publishedAt: "March 30, 2026",
+        readingTime: "6 min read",
+        coverKey: "begin",
+        captionName: "Manuscript opening lines.",
+        captionCredit: "Maya Chen / New York",
+        author: {
+          name: "Maya Chen",
+          role: "Literary Critic",
+          bio: "Writes on narrative structure, essays, and contemporary fiction.",
+          location: "New York"
+        },
+        stats: {
+          claps: "1.1k",
+          responses: "24",
+          bookmarks: "430"
+        },
+        keyTakeaways: [
+          "Strong openings set cadence before they deliver thesis.",
+          "Trust is built when the first paragraph promises only what the essay can honestly fulfill.",
+          "Revision often means cutting the first three sentences until the real voice appears."
+        ],
+        pullQuote: "“The first sentence is a handshake, not a fireworks show.”",
+        sections: [
+          {
+            paragraphs: [
+              "Writers often overwork their openings because they are afraid of silence. They pack the first sentence with throat-clearing qualifiers, grand historical claims, or rhetorical pyrotechnics.",
+              "Yet the essays we return to year after year almost always begin in the middle of a concrete observation—a specific voice speaking at a natural human pitch."
+            ]
+          },
+          {
+            heading: "Finding the True Starting Line",
+            paragraphs: [
+              "In editorial workshops, the most reliable fix for a sluggish draft is to look at the top of page two. That is usually where the writer stopped performing for an imagined critic and started telling the truth."
+            ]
+          }
+        ],
+        responses: []
+      },
+      {
+        slug: "why-we-still-keep-physical-objects",
+        title: "Why We Still Keep Physical Objects in a Weightless Age",
+        subtitle: "Fountain pens, annotated paperbacks, and the quiet anchor of things that age alongside us.",
+        excerpt: "When everything can be streamed and synced, tactile objects become vessels for continuity and memory.",
+        seriesIntro: "Material Culture & Archive Series.",
+        category: "MATERIAL CULTURE",
+        publishedAt: "March 25, 2026",
+        readingTime: "5 min read",
+        coverKey: "objects",
+        captionName: "Studio desk study in Milan.",
+        captionCredit: "Sofia Bellini / Industrial Design",
+        author: {
+          name: "Sofia Bellini",
+          role: "Design Historian",
+          bio: "Studies everyday objects, studio tools, and domestic archives.",
+          location: "Milan"
+        },
+        stats: {
+          claps: "890",
+          responses: "17",
+          bookmarks: "355"
+        },
+        keyTakeaways: [
+          "Patina records personal history in a way cloud files never can.",
+          "Tactile friction slows decisions down to a human pace.",
+          "Marginalia turns a mass-produced book into an autobiographical artifact."
+        ],
+        pullQuote: "“We do not keep analog tools because they are faster; we keep them because they remember us back.”",
+        sections: [
+          {
+            paragraphs: [
+              "On the corner of my desk sits a brass ruler my grandfather used in his drafting studio. Its edges are softened where his thumb rested for forty years. No digital file I own carries that kind of silent biography.",
+              "As our professional lives migrate entirely into weightless cloud storage, physical books, notebooks, and well-made tools take on a new psychological role: they anchor us in time."
+            ]
+          }
+        ],
+        responses: []
+      },
+      {
+        slug: "field-notes-from-an-art-conservator",
+        title: "Field Notes from an Art Conservator: Touching Time Without Leaving a Mark",
+        subtitle: "Inside the patient studio rituals where centuries-old pigments, linen, and varnish are stabilized one millimeter at a time.",
+        excerpt: "Conservation is an ethic of humility: learning when to intervene, when to stop, and how to let a work keep its lived history.",
+        seriesIntro: "Harvard Art Museums Conservation Spotlight.",
+        category: "ART & ARCHIVE",
+        publishedAt: "March 19, 2026",
+        readingTime: "9 min read",
+        coverKey: "art-photo",
+        coverUrl: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80",
+        captionName: "Pigment restoration under raking light.",
+        captionCredit: "André Valen / Conservation Studio",
+        author: {
+          name: "André Valen",
+          role: "Painting Conservator",
+          bio: "Works with European and modern canvases, writing on material memory and studio ethics.",
+          location: "Florence"
+        },
+        stats: {
+          claps: "1.6k",
+          responses: "36",
+          bookmarks: "590"
+        },
+        keyTakeaways: [
+          "Modern conservation prioritizes reversibility so future caretakers always have a choice.",
+          "Raking light reveals the topography of an artist's original brushwork.",
+          "Patience is the primary solvent in every restoration studio."
+        ],
+        pullQuote: "“Our job is not to erase age; it is to remove the noise that keeps age from speaking clearly.”",
+        sections: [
+          {
+            paragraphs: [
+              "When a seventeenth-century portrait arrives on our easel, the first week involves no solvents and no brushes. We spend days simply looking—under ultraviolet fluorescence, infrared reflectography, and low-angle raking light.",
+              "Every crack in the varnish tells a story about the rooms the painting has survived: damp winters, fireplace soot, and well-meaning nineteenth-century restorers."
+            ]
+          },
+          {
+            heading: "The Ethics of Reversibility",
+            paragraphs: [
+              "Every stroke a conservator adds today is made with pigments and resins that can be safely removed fifty years from now without disturbing a single original molecule beneath."
+            ]
+          }
+        ],
+        responses: []
+      },
+      {
+        slug: "portraits-before-the-interview-begins",
+        title: "Portraits Before the Interview Begins: On Photographing People Kindly",
+        subtitle: "What happens in the five quiet minutes before someone puts on their public face.",
+        excerpt: "Editorial portraiture is less about lighting setups than about creating a room where a subject does not feel cornered by the lens.",
+        seriesIntro: "Visual Journalism & Portraiture Essay.",
+        category: "PHOTOGRAPHY",
+        publishedAt: "March 12, 2026",
+        readingTime: "6 min read",
+        coverKey: "human-photo",
+        coverUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80",
+        captionName: "Natural window portrait study.",
+        captionCredit: "Mina Solis / Editorial Portraiture",
+        author: {
+          name: "Mina Solis",
+          role: "Essayist & Editor at Large",
+          bio: "Writes about attention, visual culture, and the emotional life of everyday tools.",
+          location: "Lisbon"
+        },
+        stats: {
+          claps: "1.3k",
+          responses: "27",
+          bookmarks: "480"
+        },
+        keyTakeaways: [
+          "The best portrait often arrives right after the official pose ends.",
+          "Natural window light invites stillness rather than performance.",
+          "Listening is the most underrated technical skill in photography."
+        ],
+        pullQuote: "“A camera records posture, but the room decides whether that posture is defended or at ease.”",
+        sections: [
+          {
+            paragraphs: [
+              "Most people sit down in front of a camera braced for judgment. Their chin lifts slightly, their shoulders lock, and they offer the practiced expression they use for faculty directories and conference badges.",
+              "My favorite frame almost never happens when I ask someone to look into the lens. It happens thirty seconds later, when we start talking about the chalkboard equations behind them or the book sitting open on their radiator."
+            ]
+          }
+        ],
+        responses: []
+      }
+    ];
+
+    const STORAGE_KEY = "vibrant:saved-story-slugs";
+    const PREFS_KEY = "vibrant:reader-prefs-v3";
+    const NOTES_KEY = "vibrant:custom-reader-notes";
+    const DEFAULT_SAVED = [
+      "confronting-ai-michael-brenner",
+      "the-quiet-work-of-paying-attention",
+      "designing-calm-software-for-thinking"
+    ];
+
+    let currentView = 'story';
+    let currentSlug = 'confronting-ai-michael-brenner';
+    let selectedCategory = 'All';
+    let feedQuery = '';
+    let savedSlugs = [];
+    let clappedSlugs = {};
+    let customNotesBySlug = {};
+    let isAudioPlaying = false;
+    let audioTimerInterval = null;
+    let audioElapsedSeconds = 0;
+    let audioTotalSeconds = 480;
+    let audioSpeed = 1.0;
+    let articleViewMode = 'full';
+    let islandExpanded = false;
+    let toastTimer = null;
+    let activeReferenceKey = null;
+    let lastSelectedText = '';
+
+    let readerPrefs = {
+      theme: 'paper',
+      bodyFont: 'sans',
+      sizeStep: 1,
+      glassDepth: 'balanced'
+    };
+
+    const FONT_SIZE_MAP = ['1.02rem', '1.125rem', '1.24rem', '1.36rem'];
+    const FONT_SCALE_LABELS = ['90%', '100%', '112%', '125%'];
+    const GLASS_DEPTH_MAP = {
+      subtle: { blur: '16px', saturate: '150%', label: 'Subtle' },
+      balanced: { blur: '28px', saturate: '195%', label: 'Balanced' },
+      prismatic: { blur: '42px', saturate: '230%', label: 'Prismatic' }
+    };
+
+    function initSavedState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          savedSlugs = Array.isArray(parsed) ? parsed : [...DEFAULT_SAVED];
+        } else {
+          savedSlugs = [...DEFAULT_SAVED];
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSlugs));
+        }
+      } catch (e) {
+        savedSlugs = [...DEFAULT_SAVED];
+      }
+
+      try {
+        const rawPrefs = localStorage.getItem(PREFS_KEY);
+        if (rawPrefs) {
+          readerPrefs = { ...readerPrefs, ...JSON.parse(rawPrefs) };
+        }
+      } catch (e) {}
+
+      try {
+        const rawNotes = localStorage.getItem(NOTES_KEY);
+        if (rawNotes) {
+          customNotesBySlug = JSON.parse(rawNotes) || {};
+        }
+      } catch (e) {}
+
+      applyReaderPrefs();
+    }
+
+    function applyReaderPrefs() {
+      document.body.classList.remove('theme-ios', 'theme-sepia', 'theme-midnight');
+      if (readerPrefs.theme === 'ios') document.body.classList.add('theme-ios');
+      if (readerPrefs.theme === 'sepia') document.body.classList.add('theme-sepia');
+      if (readerPrefs.theme === 'midnight') document.body.classList.add('theme-midnight');
+
+      const fontSize = FONT_SIZE_MAP[readerPrefs.sizeStep] || '1.125rem';
+      document.documentElement.style.setProperty('--article-font-size', fontSize);
+
+      const depthSpec = GLASS_DEPTH_MAP[readerPrefs.glassDepth] || GLASS_DEPTH_MAP.balanced;
+      document.documentElement.style.setProperty('--glass-blur', depthSpec.blur);
+      document.documentElement.style.setProperty('--glass-saturate', depthSpec.saturate);
+
+      const articleBody = document.querySelector('.article-body');
+      if (articleBody) {
+        articleBody.classList.toggle('font-literary', readerPrefs.bodyFont === 'serif');
+      }
+
+      ['paper', 'ios', 'sepia', 'midnight'].forEach(t => {
+        const btn = document.getElementById(`theme-btn-${t}`);
+        if (btn) {
+          btn.classList.toggle('ring-2', readerPrefs.theme === t);
+          btn.classList.toggle('ring-crimson', readerPrefs.theme === t);
+        }
+      });
+
+      const sansBtn = document.getElementById('font-btn-sans');
+      const serifBtn = document.getElementById('font-btn-serif');
+      if (sansBtn && serifBtn) {
+        sansBtn.className = `py-1.5 px-3 rounded-xl text-xs font-sans font-semibold transition ios-press ${readerPrefs.bodyFont === 'sans' ? 'liquid-crimson-btn text-white' : 'opacity-75'}`;
+        serifBtn.className = `py-1.5 px-3 rounded-xl text-xs font-serif font-semibold transition ios-press ${readerPrefs.bodyFont === 'serif' ? 'liquid-crimson-btn text-white' : 'opacity-75'}`;
+      }
+
+      [0, 1, 2, 3].forEach(idx => {
+        const b = document.getElementById(`size-btn-${idx}`);
+        if (b) {
+          b.className = `py-1.5 rounded-xl text-xs transition ios-press ${readerPrefs.sizeStep === idx ? 'liquid-crimson-btn text-white font-bold' : 'font-medium opacity-75'}`;
+        }
+      });
+
+      ['subtle', 'balanced', 'prismatic'].forEach(level => {
+        const b = document.getElementById(`blur-btn-${level}`);
+        if (b) {
+          b.className = `py-1 rounded-xl text-[11px] transition ios-press ${readerPrefs.glassDepth === level ? 'liquid-crimson-btn text-white font-bold' : 'font-medium opacity-75'}`;
+        }
+      });
+
+      const scaleLbl = document.getElementById('font-scale-label');
+      if (scaleLbl) scaleLbl.textContent = FONT_SCALE_LABELS[readerPrefs.sizeStep] || '100%';
+
+      const blurLbl = document.getElementById('blur-depth-label');
+      if (blurLbl) blurLbl.textContent = depthSpec.label;
+
+      try {
+        localStorage.setItem(PREFS_KEY, JSON.stringify(readerPrefs));
+      } catch (e) {}
+    }
+
+    function setGlassDepth(level) {
+      readerPrefs.glassDepth = level;
+      applyReaderPrefs();
+    }
+
+    function toggleDynamicIslandExpand(e) {
+      if (e) e.stopPropagation();
+      islandExpanded = !islandExpanded;
+      syncDynamicIslandDOM();
+    }
+
+    function closeDynamicIsland() {
+      if (!islandExpanded) return;
+      islandExpanded = false;
+      syncDynamicIslandDOM();
+    }
+
+    function syncDynamicIslandDOM() {
+      const island = document.getElementById('dynamic-island');
+      const expandedView = document.getElementById('island-expanded-view');
+      const expTitle = document.getElementById('island-exp-title');
+      const expMeta = document.getElementById('island-exp-meta');
+      const audioLbl = document.getElementById('island-audio-btn-label');
+      const queueCount = document.getElementById('island-queue-count');
+
+      if (!island || !expandedView) return;
+      const story = STORIES.find(s => s.slug === currentSlug) || STORIES[0];
+
+      if (expTitle) expTitle.textContent = story.title;
+      if (expMeta) expMeta.textContent = `${story.author.name} • ${story.readingTime}`;
+      if (audioLbl) audioLbl.textContent = isAudioPlaying ? '⏸ Pause' : '▶ Listen';
+      if (queueCount) queueCount.textContent = String(savedSlugs.length);
+
+      if (islandExpanded) {
+        expandedView.classList.remove('hidden');
+      } else {
+        expandedView.classList.add('hidden');
+      }
+    }
+
+    function showCustomToast(title, body, duration = 3500, showCiteAction = false) {
+      const toast = document.getElementById('reference-toast');
+      const titleEl = document.getElementById('ref-toast-title');
+      const bodyEl = document.getElementById('ref-toast-body');
+      const actionsEl = document.getElementById('ref-toast-actions');
+      if (!toast || !titleEl || !bodyEl) return;
+      titleEl.textContent = title;
+      bodyEl.textContent = body;
+      if (actionsEl) {
+        actionsEl.classList.toggle('hidden', !showCiteAction);
+      }
+      toast.classList.remove('hidden');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(hideReferenceToast, duration);
+    }
+
+    function showReference(refKey) {
+      const ref = ARTICLE_REFERENCES[refKey];
+      if (!ref) return;
+      activeReferenceKey = refKey;
+      showCustomToast(ref.title, ref.desc, 7500, true);
+    }
+
+    function citeActiveReferenceInNote() {
+      const ref = activeReferenceKey ? ARTICLE_REFERENCES[activeReferenceKey] : null;
+      if (!ref) return;
+      hideReferenceToast();
+      const noteInput = document.getElementById('note-body-input');
+      if (noteInput) {
+        noteInput.value = `Regarding ${ref.title}: `;
+        noteInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => noteInput.focus(), 380);
+      }
+    }
+
+    function hideReferenceToast() {
+      const toast = document.getElementById('reference-toast');
+      if (toast) toast.classList.add('hidden');
+      if (toastTimer) {
+        clearTimeout(toastTimer);
+        toastTimer = null;
+      }
+    }
+
+    function getModeIndex(mode) {
+      if (mode === 'brief') return 1;
+      if (mode === 'quotes') return 2;
+      return 0;
+    }
+
+    function setArticleViewMode(mode) {
+      articleViewMode = mode;
+      const story = STORIES.find(s => s.slug === currentSlug) || STORIES[0];
+      const modeContainer = document.getElementById('article-mode-content');
+      const thumb = document.getElementById('reading-mode-thumb');
+      const idx = getModeIndex(mode);
+
+      if (thumb) {
+        thumb.style.transform = `translate3d(${idx * 100}%, 0, 0)`;
+      }
+
+      ['full', 'brief', 'quotes'].forEach(m => {
+        const btn = document.getElementById(`mode-btn-${m}`);
+        if (btn) {
+          btn.className = `relative z-10 py-2 px-3 rounded-xl transition-colors duration-300 text-xs font-semibold ${articleViewMode === m ? 'text-white font-bold' : 'opacity-75 hover:opacity-100'}`;
+        }
+      });
+
+      if (modeContainer) {
+        modeContainer.innerHTML = buildActiveModeContentHtml(story);
+      } else {
+        render(false);
+      }
+    }
+
+    function cycleAudioSpeed(slug) {
+      const speeds = [1.0, 1.25, 1.5];
+      const nextIdx = (speeds.indexOf(audioSpeed) + 1) % speeds.length;
+      audioSpeed = speeds[nextIdx];
+      const speedBtn = document.getElementById('audio-speed-btn');
+      if (speedBtn) speedBtn.textContent = `${audioSpeed}×`;
+      if (isAudioPlaying) {
+        stopAudioNarration();
+        toggleAudioNarration(slug);
+      } else {
+        updateDynamicIslandStatus();
+      }
+    }
+
+    function seekAudioProgress(event) {
+      const track = event.currentTarget;
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      audioElapsedSeconds = Math.round(ratio * audioTotalSeconds);
+      syncAudioPlayerDOM();
+      updateDynamicIslandStatus();
+    }
+
+    function syncAudioPlayerDOM() {
+      const mins = String(Math.floor(audioElapsedSeconds / 60)).padStart(2, '0');
+      const secs = String(audioElapsedSeconds % 60).padStart(2, '0');
+      const timerEl = document.getElementById('audio-elapsed-label');
+      if (timerEl) timerEl.textContent = `${mins}:${secs}`;
+
+      const progressFill = document.getElementById('audio-scrubber-fill');
+      if (progressFill) {
+        const pct = Math.min(100, Math.round((audioElapsedSeconds / audioTotalSeconds) * 100));
+        progressFill.style.width = `${pct}%`;
+      }
+
+      const statusText = document.getElementById('audio-status-text');
+      if (statusText) {
+        statusText.textContent = isAudioPlaying ? 'Playing Spatial Audio Edition...' : 'Listen to narrated article';
+      }
+
+      const eqContainer = document.getElementById('audio-eq-bars');
+      if (eqContainer) {
+        eqContainer.classList.toggle('hidden', !isAudioPlaying);
+        eqContainer.classList.toggle('inline-flex', isAudioPlaying);
+      }
+
+      const playBtnIcon = document.getElementById('audio-play-icon-wrap');
+      if (playBtnIcon) {
+        playBtnIcon.innerHTML = isAudioPlaying
+          ? `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>`
+          : `<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+      }
+    }
+
+    function toggleAppearancePopover(e) {
+      if (e) e.stopPropagation();
+      const pop = document.getElementById('appearance-popover');
+      if (pop) pop.classList.toggle('hidden');
+    }
+
+    function setReaderTheme(theme) {
+      readerPrefs.theme = theme;
+      applyReaderPrefs();
+    }
+
+    function setBodyFont(font) {
+      readerPrefs.bodyFont = font;
+      applyReaderPrefs();
+    }
+
+    function setFontSizeStep(step) {
+      readerPrefs.sizeStep = step;
+      applyReaderPrefs();
+    }
+
+    function toggleAudioNarration(slug) {
+      const story = STORIES.find(s => s.slug === slug) || STORIES[0];
+      const minsMatch = parseInt(story.readingTime) || 8;
+      audioTotalSeconds = minsMatch * 60;
+
+      if (isAudioPlaying) {
+        stopAudioNarration();
+        syncAudioPlayerDOM();
+        updateDynamicIslandStatus();
+        syncDynamicIslandDOM();
+        return;
+      }
+      isAudioPlaying = true;
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(`${story.title}. ${story.subtitle}. Written by ${story.author.name}. ${story.excerpt}`);
+          utterance.rate = audioSpeed;
+          utterance.onend = () => {
+            stopAudioNarration();
+            syncAudioPlayerDOM();
+            updateDynamicIslandStatus();
+            syncDynamicIslandDOM();
+          };
+          window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+      }
+      audioTimerInterval = setInterval(() => {
+        audioElapsedSeconds = (audioElapsedSeconds + 1) % audioTotalSeconds;
+        syncAudioPlayerDOM();
+        updateDynamicIslandStatus();
+      }, 1000);
+      syncAudioPlayerDOM();
+      updateDynamicIslandStatus();
+      syncDynamicIslandDOM();
+    }
+
+    function stopAudioNarration() {
+      isAudioPlaying = false;
+      if (audioTimerInterval) {
+        clearInterval(audioTimerInterval);
+        audioTimerInterval = null;
+      }
+      if ('speechSynthesis' in window) {
+        try { window.speechSynthesis.cancel(); } catch (e) {}
+      }
+    }
+
+    function submitReaderNote(event, slug) {
+      event.preventDefault();
+      const nameInput = document.getElementById('note-author-input');
+      const roleInput = document.getElementById('note-role-input');
+      const bodyInput = document.getElementById('note-body-input');
+      if (!bodyInput || !bodyInput.value.trim()) return;
+
+      const newNote = {
+        name: (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : "Harvard Gazette Reader",
+        role: (roleInput && roleInput.value.trim()) ? roleInput.value.trim() : "Liquid Glass Edition",
+        comment: bodyInput.value.trim(),
+        timeAgo: "Just now"
+      };
+
+      if (!customNotesBySlug[slug]) customNotesBySlug[slug] = [];
+      customNotesBySlug[slug] = [newNote, ...customNotesBySlug[slug]];
+      try {
+        localStorage.setItem(NOTES_KEY, JSON.stringify(customNotesBySlug));
+      } catch (e) {}
+      showCustomToast("Reflection Published", "Your note was added to Community Marginalia.");
+      render(false);
+    }
+
+    function persistSavedState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSlugs));
+      } catch (e) {}
+      updateHeaderBadges();
+    }
+
+    function updateHeaderBadges() {
+      const count = Array.isArray(savedSlugs) ? savedSlugs.length : 0;
+      const badge = document.getElementById('saved-badge');
+      const drawerBadge = document.getElementById('drawer-saved-badge');
+      const dockBadge = document.getElementById('dock-saved-badge');
+      const feedSavedCount = document.getElementById('feed-saved-count');
+
+      if (badge) badge.textContent = String(count);
+      if (drawerBadge) drawerBadge.textContent = String(count);
+      if (dockBadge) dockBadge.textContent = String(count);
+      if (feedSavedCount) feedSavedCount.textContent = `${count} saved in queue`;
+
+      const isBrenner = currentView === 'story' && currentSlug === 'confronting-ai-michael-brenner';
+      const isHome = currentView === 'home';
+      const isSaved = currentView === 'saved';
+
+      const navBrenner = document.getElementById('nav-brenner');
+      const navHome = document.getElementById('nav-home');
+      const navSaved = document.getElementById('nav-saved');
+
+      if (navBrenner) {
+        navBrenner.className = `px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 ios-press ${isBrenner ? 'liquid-crimson-btn text-white font-bold' : 'hover:text-crimson'}`;
+      }
+      if (navHome) {
+        navHome.className = `px-3.5 py-1.5 rounded-full transition-all ios-press ${isHome ? 'liquid-crimson-btn text-white font-bold' : 'hover:text-crimson'}`;
+      }
+      if (navSaved) {
+        navSaved.className = `px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 ios-press ${isSaved ? 'liquid-crimson-btn text-white font-bold' : 'hover:text-crimson'}`;
+      }
+
+      const dockBrenner = document.getElementById('dock-brenner');
+      const dockHome = document.getElementById('dock-home');
+      const dockSaved = document.getElementById('dock-saved');
+
+      if (dockBrenner) {
+        dockBrenner.className = `flex-1 py-2 px-2.5 rounded-full flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-all ios-press ${isBrenner ? 'liquid-crimson-btn text-white' : 'opacity-75 hover:opacity-100'}`;
+      }
+      if (dockHome) {
+        dockHome.className = `flex-1 py-2 px-2.5 rounded-full flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-all ios-press ${isHome ? 'liquid-crimson-btn text-white' : 'opacity-75 hover:opacity-100'}`;
+      }
+      if (dockSaved) {
+        dockSaved.className = `flex-1 py-2 px-2.5 rounded-full flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-all ios-press relative ${isSaved ? 'liquid-crimson-btn text-white' : 'opacity-75 hover:opacity-100'}`;
+      }
+    }
+
+    function toggleSaveStory(slug) {
+      if (!slug) return;
+      const index = savedSlugs.indexOf(slug);
+      const story = STORIES.find(s => s.slug === slug);
+      const nowSaved = index === -1;
+      if (index > -1) {
+        savedSlugs.splice(index, 1);
+      } else {
+        savedSlugs.unshift(slug);
+      }
+      persistSavedState();
+      syncDynamicIslandDOM();
+
+      if (currentView === 'home') {
+        renderHomeFeedResults();
+      } else if (currentView === 'saved') {
+        render(false);
+      } else {
+        /* Surgical in-place button update to preserve scroll & transition physics */
+        const saveBtn = document.getElementById('story-action-save-btn');
+        if (saveBtn) {
+          saveBtn.className = `inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium ios-press ${nowSaved ? 'border-crimson bg-crimson/15 text-crimson font-semibold' : 'theme-surface hover:border-crimson'}`;
+          saveBtn.innerHTML = `<span>${nowSaved ? '✓' : '＋'}</span><span>${nowSaved ? 'Saved in Queue' : 'Save Story'}</span>`;
+        }
+        const queueCounterBtn = document.getElementById('author-card-queue-btn');
+        if (queueCounterBtn) {
+          queueCounterBtn.textContent = `Open Saved Reading Queue (${savedSlugs.length}) →`;
+        }
+      }
+
+      if (story) {
+        showCustomToast(
+          nowSaved ? 'Saved to Liquid Glass Queue' : 'Removed from Queue',
+          story.title,
+          3000
+        );
+      }
+    }
+
+    function clearSavedStories() {
+      savedSlugs = [];
+      persistSavedState();
+      render(false);
+    }
+
+    function resetDemoSavedStories() {
+      savedSlugs = [...DEFAULT_SAVED];
+      persistSavedState();
+      render(false);
+    }
+
+    function toggleClap(slug) {
+      clappedSlugs[slug] = !clappedSlugs[slug];
+      const isClapped = !!clappedSlugs[slug];
+      const story = STORIES.find(s => s.slug === slug) || STORIES[0];
+      const clapBtn = document.getElementById('story-action-clap-btn');
+      if (clapBtn) {
+        clapBtn.className = `inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium ios-press ${isClapped ? 'liquid-crimson-btn border-crimson text-white' : 'theme-surface hover:border-crimson'}`;
+        clapBtn.innerHTML = `<span>👏</span><span>${isClapped ? 'Applauded' : 'Applaud'}</span><span class="text-xs opacity-80">(${story.stats.claps})</span>`;
+      } else {
+        render(false);
+      }
+    }
+
+    function getCoverVisual(story) {
+      if (story.coverKey === 'brenner-chalkboard') {
+        return SVG_COVERS['brenner-chalkboard'];
+      }
+      if (story.coverUrl) {
+        return `
+          <div class="w-full aspect-[16/10] bg-stone-200 overflow-hidden">
+            <img src="${story.coverUrl}" alt="${story.title}" class="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-105" onerror="this.onerror=null;this.src='https://placehold.co/1200x760/EDE3D5/A51C30?text=The+Harvard+Gazette';" />
+          </div>
+        `;
+      }
+      const svgMarkup = SVG_COVERS[story.coverKey] || SVG_COVERS['quiet'];
+      return `
+        <div class="w-full aspect-[16/10] bg-[#EFE7DC] overflow-hidden transition-transform duration-700 ease-out hover:scale-105">
+          ${svgMarkup}
+        </div>
+      `;
+    }
+
+    function buildStoryBodyHtml(story) {
+      if (story.gazetteHtml) {
+        return story.gazetteHtml;
+      }
+      let html = '';
+      if (story.sections && story.sections.length > 0) {
+        story.sections.forEach((sec, idx) => {
+          if (sec.heading) {
+            html += `<h3 class="gazette-headline font-bold text-2xl mt-9 mb-4">${sec.heading}</h3>`;
+          }
+          if (sec.paragraphs) {
+            sec.paragraphs.forEach(p => {
+              html += `<p>${p}</p>`;
+            });
+          }
+          if (idx === 0 && story.pullQuote) {
+            html += `
+              <blockquote class="my-10 pl-6 border-l-[6px] border-crimson py-0.5">
+                <p class="!font-serif !text-[25px] sm:!text-[28px] !leading-[1.24] !mb-0 tracking-[-0.015em]" style="color: var(--text-ink);">
+                  ${story.pullQuote}
+                </p>
+              </blockquote>
+            `;
+          }
+        });
+      }
+      return html;
+    }
+
+    function buildActiveModeContentHtml(story) {
+      if (articleViewMode === 'brief') {
+        return `
+          <div class="theme-surface liquid-card-interactive border ios-squircle p-6 sm:p-8 my-6 view-transition">
+            <div class="flex items-center justify-between gap-2 pb-4 border-b" style="border-color: var(--border-tone);">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-crimson"></span>
+                <span class="text-xs font-bold uppercase tracking-[0.15em] text-crimson">Liquid Glass Executive Brief</span>
+              </div>
+              <span class="text-[11px] font-mono opacity-65">30-Second Synthesis</span>
+            </div>
+            <p class="font-serif text-lg sm:text-xl leading-relaxed mt-5" style="color: var(--text-ink);">
+              ${story.excerpt}
+            </p>
+            <div class="mt-6 space-y-3">
+              <p class="text-[11px] font-bold uppercase tracking-widest opacity-60">Core Thesis & Takeaways</p>
+              ${story.keyTakeaways.map((pt, i) => `
+                <div class="p-3.5 rounded-2xl theme-subtle border flex items-start gap-3">
+                  <span class="w-6 h-6 rounded-full liquid-crimson-btn text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">${i + 1}</span>
+                  <p class="text-sm leading-relaxed font-medium">${pt}</p>
+                </div>
+              `).join('')}
+            </div>
+            <div class="mt-6 pt-4 border-t flex items-center justify-between" style="border-color: var(--border-tone);">
+              <span class="text-xs opacity-70">Want the complete verbatim dialogue?</span>
+              <button onclick="setArticleViewMode('full')" class="text-xs font-bold text-crimson hover:underline">Switch to Full Article →</button>
+            </div>
+          </div>
+        `;
+      }
+      if (articleViewMode === 'quotes') {
+        return `
+          <div class="space-y-5 my-6 view-transition">
+            <div class="theme-surface liquid-card-interactive border ios-squircle p-6 sm:p-8 relative overflow-hidden">
+              <div class="text-xs font-bold uppercase tracking-[0.14em] text-crimson mb-3">Featured Pull Quote</div>
+              <blockquote class="font-serif text-2xl sm:text-3xl leading-snug" style="color: var(--text-ink);">
+                ${story.pullQuote}
+              </blockquote>
+              <div class="mt-4 flex items-center justify-between text-xs opacity-75">
+                <span>— ${story.author.name} (${story.title})</span>
+                <button onclick="copyShareUrl()" class="font-bold text-crimson hover:underline">Copy Quote Link</button>
+              </div>
+            </div>
+            ${story.slug === 'confronting-ai-michael-brenner' ? `
+              <div class="theme-surface liquid-card-interactive border ios-squircle p-6 sm:p-8">
+                <div class="text-xs font-bold uppercase tracking-[0.14em] text-crimson mb-3">On Universities & Humanity</div>
+                <blockquote class="font-serif text-xl sm:text-2xl leading-snug" style="color: var(--text-ink);">
+                  “Wouldn’t you like a place where there are deep thinkers with deep knowledge of how to influence government, how to understand physics, how to understand computer science, and who are unbiased, who aren’t doing it to make money, who are just in it to help humanity?”
+                </blockquote>
+                <div class="mt-4 text-xs opacity-75">— Michael P. Brenner, Catalyst Professor at Harvard</div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+      return `
+        <div class="article-body ${readerPrefs.bodyFont === 'serif' ? 'font-literary' : 'font-sans'} view-transition">
+          ${buildStoryBodyHtml(story)}
+        </div>
+      `;
+    }
+
+    function renderStoryDetailView(slug) {
+      const story = STORIES.find(s => s.slug === slug) || STORIES[0];
+      const isSaved = savedSlugs.includes(story.slug);
+      const isClapped = !!clappedSlugs[story.slug];
+      const related = STORIES.filter(s => s.slug !== story.slug).slice(0, 3);
+      const allResponses = [...(customNotesBySlug[story.slug] || []), ...(story.responses || [])];
+      const mins = String(Math.floor(audioElapsedSeconds / 60)).padStart(2, '0');
+      const secs = String(audioElapsedSeconds % 60).padStart(2, '0');
+      const modeIdx = getModeIndex(articleViewMode);
+      const scrubberPct = Math.min(100, Math.round((audioElapsedSeconds / audioTotalSeconds) * 100));
+
+      return `
+        <article class="pb-16 view-transition">
+          <div class="max-w-3xl mx-auto sm:pt-5 sm:px-4">
+            <div class="w-full overflow-hidden sm:rounded-[28px] hero-optical-frame">
+              ${getCoverVisual(story)}
+            </div>
+            <div class="px-5 sm:px-4 pt-3.5 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <p class="text-[13.5px] leading-snug font-medium" style="color: var(--text-ink);">${story.captionName}</p>
+              <p class="text-[13px] leading-snug italic font-normal" style="color: var(--text-muted);">${story.captionCredit}</p>
+            </div>
+          </div>
+
+          <div class="max-w-2xl mx-auto px-5 sm:px-8 pt-2 text-center">
+            <div class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] px-3.5 py-1 rounded-full theme-subtle border mb-4" style="color: var(--text-ink);">
+              <span class="w-1.5 h-1.5 rounded-full bg-crimson"></span>
+              <span>${story.category}</span>
+            </div>
+
+            <h1 class="gazette-headline text-[34px] sm:text-[46px] font-semibold mb-7">
+              ${story.title}
+            </h1>
+
+            <div class="w-[52px] h-[3.5px] bg-crimson mx-auto my-6 rounded-full shadow-[0_0_12px_rgba(165,28,48,0.5)]"></div>
+
+            <div class="text-[14.5px] font-normal mt-5" style="color: var(--text-ink);">
+              <span class="font-medium">${story.author.name}</span>
+              <span class="mx-1.5 text-stone-400">|</span>
+              <span class="opacity-80">${story.author.role}</span>
+            </div>
+
+            <div class="text-[14px] font-normal mt-2 flex items-center justify-center gap-2.5" style="color: var(--text-ink);">
+              <span>${story.publishedAt}</span>
+              <span class="w-[6px] h-[6px] bg-crimson inline-block rounded-xs"></span>
+              <span>${story.readingTime}</span>
+            </div>
+          </div>
+
+          <div class="max-w-2xl mx-auto px-5 sm:px-8 mt-9">
+            <!-- Upgraded Liquid Glass Spatial Audio Player Card with Interactive Scrubber -->
+            <div class="mb-6 ios-squircle theme-surface liquid-card-interactive border p-4 sm:p-4.5">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3.5">
+                  <button onclick="toggleAudioNarration('${story.slug}')" class="w-11 h-11 rounded-2xl liquid-crimson-btn text-white flex items-center justify-center transition shrink-0 ios-press" aria-label="Listen to story">
+                    <span id="audio-play-icon-wrap">
+                      ${isAudioPlaying ? `
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                      ` : `
+                        <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                      `}
+                    </span>
+                  </button>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-crimson">Apple News+ Spatial Audio</span>
+                      <span id="audio-eq-bars" class="${isAudioPlaying ? 'inline-flex' : 'hidden'} items-end gap-0.5 h-3">
+                        <span class="w-0.5 h-3 bg-crimson audio-bar"></span>
+                        <span class="w-0.5 h-2.5 bg-crimson audio-bar" style="animation-delay:0.15s"></span>
+                        <span class="w-0.5 h-3.5 bg-crimson audio-bar" style="animation-delay:0.3s"></span>
+                        <span class="w-0.5 h-2 bg-crimson audio-bar" style="animation-delay:0.45s"></span>
+                      </span>
+                    </div>
+                    <p class="text-xs opacity-75 mt-0.5"><span id="audio-status-text">${isAudioPlaying ? 'Playing Spatial Audio Edition...' : 'Listen to narrated article'}</span> • <span id="audio-elapsed-label" class="font-mono font-semibold">${mins}:${secs}</span></p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button id="audio-speed-btn" onclick="cycleAudioSpeed('${story.slug}')" class="text-[11px] font-mono font-bold px-2.5 py-1.5 rounded-xl theme-subtle border hover:border-crimson transition ios-press">
+                    ${audioSpeed}×
+                  </button>
+                  <button onclick="toggleAppearancePopover(event)" class="text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl theme-subtle border hover:border-crimson transition ios-press">
+                    Aa Studio
+                  </button>
+                </div>
+              </div>
+              <!-- Interactive Audio Scrubber Track -->
+              <div onclick="seekAudioProgress(event)" class="mt-3.5 h-1.5 w-full rounded-full theme-subtle cursor-pointer overflow-hidden relative group" title="Click to seek audio">
+                <div id="audio-scrubber-fill" style="width: ${scrubberPct}%" class="h-full bg-gradient-to-r from-crimson to-[#E63956] rounded-full transition-[width] duration-200"></div>
+              </div>
+            </div>
+
+            <!-- True Sliding Pill Segmented Control for Reading Mode -->
+            <div class="mb-8 segmented-glass-track grid-cols-3 border" style="border-color: var(--border-tone);">
+              <div id="reading-mode-thumb" class="segmented-glass-thumb" style="width: calc((100% - 8px) / 3); transform: translate3d(${modeIdx * 100}%, 0, 0);"></div>
+              <button id="mode-btn-full" onclick="setArticleViewMode('full')" class="relative z-10 py-2 px-3 rounded-xl transition-colors duration-300 text-xs font-semibold ${articleViewMode === 'full' ? 'text-white font-bold' : 'opacity-75 hover:opacity-100'}">
+                Full Editorial
+              </button>
+              <button id="mode-btn-brief" onclick="setArticleViewMode('brief')" class="relative z-10 py-2 px-3 rounded-xl transition-colors duration-300 text-xs font-semibold ${articleViewMode === 'brief' ? 'text-white font-bold' : 'opacity-75 hover:opacity-100'}">
+                ⚡ Smart Brief
+              </button>
+              <button id="mode-btn-quotes" onclick="setArticleViewMode('quotes')" class="relative z-10 py-2 px-3 rounded-xl transition-colors duration-300 text-xs font-semibold ${articleViewMode === 'quotes' ? 'text-white font-bold' : 'opacity-75 hover:opacity-100'}">
+                “ Key Quotes
+              </button>
+            </div>
+
+            <h2 class="gazette-deck text-[25px] sm:text-[31px] font-medium mb-8">
+              ${story.subtitle}
+            </h2>
+
+            ${story.seriesIntro ? `
+              <p class="text-[17.5px] leading-[1.6] italic mb-8 font-normal" style="color: var(--text-ink);">
+                ${story.seriesIntro}
+              </p>
+            ` : ''}
+
+            <div id="article-mode-content">
+              ${buildActiveModeContentHtml(story)}
+            </div>
+
+            <!-- Interactive Liquid Glass Action Bar -->
+            <div class="mt-12 pt-5 pb-5 border-y flex flex-wrap items-center justify-between gap-3" style="border-color: var(--border-tone);">
+              <div class="flex flex-wrap items-center gap-2">
+                <button id="story-action-clap-btn" onclick="toggleClap('${story.slug}')" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium ios-press ${isClapped ? 'liquid-crimson-btn border-crimson text-white' : 'theme-surface hover:border-crimson'}">
+                  <span>👏</span>
+                  <span>${isClapped ? 'Applauded' : 'Applaud'}</span>
+                  <span class="text-xs opacity-80">(${story.stats.claps})</span>
+                </button>
+
+                <button id="story-action-save-btn" onclick="toggleSaveStory('${story.slug}')" class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium ios-press ${isSaved ? 'border-crimson bg-crimson/15 text-crimson font-semibold' : 'theme-surface hover:border-crimson'}">
+                  <span>${isSaved ? '✓' : '＋'}</span>
+                  <span>${isSaved ? 'Saved in Queue' : 'Save Story'}</span>
+                </button>
+
+                <button onclick="copyShareUrl()" class="inline-flex items-center gap-2 rounded-full border theme-surface px-4 py-2 text-sm font-medium hover:border-crimson ios-press">
+                  <span>↗</span>
+                  <span id="copy-link-label">Share Link</span>
+                </button>
+              </div>
+
+              <a href="#reader-responses" class="text-xs font-bold uppercase tracking-widest text-crimson hover:underline">
+                ${allResponses.length} Responses ↓
+              </a>
+            </div>
+
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-12 gap-6">
+              <div class="md:col-span-7 theme-subtle border ios-squircle p-6">
+                <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-crimson">Key Takeaways</p>
+                <ul class="mt-3 space-y-2.5 text-sm leading-relaxed">
+                  ${story.keyTakeaways.map(item => `
+                    <li class="flex gap-2.5">
+                      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-crimson"></span>
+                      <span>${item}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+
+              <div class="md:col-span-5 theme-surface liquid-card-interactive border ios-squircle p-6 flex flex-col justify-between">
+                <div>
+                  <p class="text-[11px] font-bold uppercase tracking-[0.16em] opacity-60">Written By</p>
+                  <h3 class="font-serif font-semibold text-xl mt-1">${story.author.name}</h3>
+                  <p class="text-xs text-crimson font-medium mt-0.5">${story.author.role} • ${story.author.location}</p>
+                  <p class="text-xs opacity-75 leading-relaxed mt-3">${story.author.bio}</p>
+                </div>
+                <button id="author-card-queue-btn" onclick="navigateTo('saved')" class="mt-4 text-left text-xs font-bold uppercase tracking-wider hover:text-crimson underline">
+                  Open Saved Reading Queue (${savedSlugs.length}) →
+                </button>
+              </div>
+            </div>
+
+            <!-- Community Notes & Marginalia -->
+            <section id="reader-responses" class="mt-12 pt-8 border-t" style="border-color: var(--border-tone);">
+              <div class="flex items-center justify-between mb-5">
+                <div>
+                  <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-crimson">Community Notes & Marginalia</p>
+                  <h3 class="gazette-headline text-2xl font-semibold mt-1">Reader Highlights (${allResponses.length})</h3>
+                </div>
+              </div>
+
+              <form onsubmit="submitReaderNote(event, '${story.slug}')" class="theme-surface border ios-squircle p-5 mb-6">
+                <p class="text-xs font-bold uppercase tracking-wider text-crimson mb-3">Add Your Editorial Reflection</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-2.5">
+                  <input id="note-author-input" type="text" placeholder="Your name (e.g., Dr. Elena Rostova)" class="w-full rounded-xl border border-stone-400/40 bg-transparent px-3.5 py-2 text-xs focus:outline-none focus:border-crimson" />
+                  <input id="note-role-input" type="text" placeholder="Affiliation or role (optional)" class="w-full rounded-xl border border-stone-400/40 bg-transparent px-3.5 py-2 text-xs focus:outline-none focus:border-crimson" />
+                </div>
+                <textarea id="note-body-input" rows="2" required placeholder="Share a thoughtful note or response to this piece..." class="w-full rounded-xl border border-stone-400/40 bg-transparent px-3.5 py-2 text-sm focus:outline-none focus:border-crimson"></textarea>
+                <div class="mt-3 flex justify-end">
+                  <button type="submit" class="liquid-crimson-btn text-white text-xs font-bold uppercase tracking-wider px-5 py-2 rounded-full transition ios-press">
+                    Post Reflection
+                  </button>
+                </div>
+              </form>
+
+              <div class="space-y-4">
+                ${allResponses.length === 0 ? `
+                  <p class="text-xs opacity-70 italic py-2">Be the first reader to leave an editorial note on this essay.</p>
+                ` : allResponses.map(item => `
+                  <div class="theme-subtle border rounded-2xl p-5">
+                    <div class="flex items-center justify-between text-xs">
+                      <div>
+                        <span class="font-bold">${item.name}</span>
+                        <span class="opacity-70"> · ${item.role}</span>
+                      </div>
+                      <span class="opacity-60">${item.timeAgo}</span>
+                    </div>
+                    <p class="mt-2.5 text-sm leading-relaxed">${item.comment}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </section>
+
+            <!-- Continue Reading Grid -->
+            <section class="mt-14 pt-8 border-t-2 border-crimson">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <p class="text-[11px] font-bold uppercase tracking-[0.16em] text-crimson">Continue Reading</p>
+                  <h3 class="gazette-headline text-2xl sm:text-3xl font-semibold mt-1">More from The Gazette & Vibrant</h3>
+                </div>
+                <button onclick="navigateTo('home')" class="text-xs font-bold uppercase tracking-wider text-crimson hover:underline shrink-0">
+                  All 9 Stories →
+                </button>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                ${related.map((other, idx) => `
+                  <div onclick="navigateTo('story', '${other.slug}')" style="animation-delay: ${idx * 70}ms" class="stagger-card cursor-pointer group theme-surface liquid-card-interactive border rounded-[22px] overflow-hidden flex flex-col justify-between">
+                    <div>
+                      <div class="aspect-[16/10] overflow-hidden bg-stone-100">
+                        ${getCoverVisual(other)}
+                      </div>
+                      <div class="p-4">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-crimson">${other.category}</span>
+                        <h4 class="font-serif font-semibold text-base group-hover:text-crimson transition mt-1 leading-snug">${other.title}</h4>
+                      </div>
+                    </div>
+                    <div class="px-4 pb-4 text-[11px] opacity-65">
+                      ${other.author.name} • ${other.readingTime}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </section>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderSavedStoriesView() {
+      const savedStories = STORIES.filter(s => savedSlugs.includes(s.slug));
+      const totalMinutes = savedStories.reduce((acc, s) => {
+        const num = parseInt(s.readingTime) || 5;
+        return acc + num;
+      }, 0);
+
+      return `
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10 view-transition">
+          <div class="border-b-2 pb-6 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4" style="border-color: var(--text-ink);">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-crimson">Personal Reading Queue</p>
+              <h1 class="gazette-headline text-3xl sm:text-4xl font-bold mt-1">Saved for Quiet Hours</h1>
+            </div>
+            <div class="flex items-center gap-3">
+              <button onclick="clearSavedStories()" class="text-xs font-bold uppercase tracking-wider opacity-60 hover:text-crimson transition">Clear Queue</button>
+              <button onclick="resetDemoSavedStories()" class="text-xs font-bold uppercase tracking-wider theme-subtle border px-3.5 py-1.5 rounded-full transition ios-press">Reset Defaults</button>
+            </div>
+          </div>
+
+          <div class="theme-subtle border ios-squircle p-6 mb-8 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p class="font-serif font-semibold text-lg">Queue Summary</p>
+              <p class="text-xs opacity-75 mt-0.5">${savedStories.length} stories saved • Approx. ${totalMinutes} minutes total reading time</p>
+            </div>
+            <button onclick="navigateTo('home')" class="liquid-crimson-btn text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition ios-press">Explore More</button>
+          </div>
+
+          ${savedStories.length === 0 ? `
+            <div class="text-center py-16 theme-surface border ios-squircle p-8">
+              <p class="gazette-headline text-2xl">Your reading queue is currently empty</p>
+              <p class="text-sm opacity-70 mt-2">Browse the repository and tap "Save Story" to bookmark articles for later.</p>
+              <button onclick="navigateTo('home')" class="mt-6 liquid-crimson-btn text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider ios-press">Browse All Stories</button>
+            </div>
+          ` : `
+            <div class="space-y-4">
+              ${savedStories.map((story, idx) => `
+                <div style="animation-delay: ${idx * 60}ms" class="stagger-card theme-surface liquid-card-interactive border rounded-[22px] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div onclick="navigateTo('story', '${story.slug}')" class="cursor-pointer flex-1">
+                    <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-crimson mb-1">
+                      <span>${story.category}</span>
+                      <span>•</span>
+                      <span class="opacity-65">${story.readingTime}</span>
+                    </div>
+                    <h3 class="gazette-headline text-lg sm:text-xl font-semibold hover:text-crimson transition">${story.title}</h3>
+                    <p class="text-xs opacity-75 line-clamp-1 mt-1">${story.subtitle}</p>
+                  </div>
+                  <div class="flex items-center gap-3 shrink-0">
+                    <button onclick="navigateTo('story', '${story.slug}')" class="liquid-crimson-btn text-white px-4 py-2 rounded-full text-xs font-semibold transition ios-press">Read</button>
+                    <button onclick="toggleSaveStory('${story.slug}')" class="w-8 h-8 rounded-full theme-subtle flex items-center justify-center opacity-65 hover:opacity-100 hover:text-crimson text-xs ios-press" title="Remove from queue">✕</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function getFilteredStories() {
+      const normalizedQuery = feedQuery.trim().toLowerCase();
+      return STORIES.filter(story => {
+        const matchesCategory = selectedCategory === 'All' || story.category === selectedCategory;
+        const matchesQuery = !normalizedQuery ||
+          story.title.toLowerCase().includes(normalizedQuery) ||
+          story.subtitle.toLowerCase().includes(normalizedQuery) ||
+          story.author.name.toLowerCase().includes(normalizedQuery) ||
+          story.category.toLowerCase().includes(normalizedQuery);
+        return matchesCategory && matchesQuery;
+      });
+    }
+
+    function renderHomeFeedResultsHtml() {
+      const filteredStories = getFilteredStories();
+      const leadStory = filteredStories[0];
+      const remainingStories = filteredStories.slice(1);
+
+      if (filteredStories.length === 0) {
+        return `
+          <div class="text-center py-14 theme-surface ios-squircle border p-8">
+            <p class="gazette-headline text-2xl">No stories match that filter</p>
+            <p class="text-sm opacity-70 mt-2">Try clearing your search query or switching back to all topics.</p>
+            <button onclick="resetFeedFilters()" class="mt-5 liquid-crimson-btn text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider ios-press">
+              Show All Stories
+            </button>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="theme-surface liquid-card-interactive border rounded-[28px] overflow-hidden mb-10 grid grid-cols-1 lg:grid-cols-12 group">
+          <div onclick="navigateTo('story', '${leadStory.slug}')" class="lg:col-span-7 cursor-pointer overflow-hidden bg-stone-900">
+            ${getCoverVisual(leadStory)}
+          </div>
+          <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-crimson">
+                <span>${leadStory.category}</span>
+                <span>•</span>
+                <span>Lead Dispatch</span>
+              </div>
+              <h2 onclick="navigateTo('story', '${leadStory.slug}')" class="gazette-headline text-2xl sm:text-3xl font-semibold hover:text-crimson cursor-pointer transition mt-2.5">
+                ${leadStory.title}
+              </h2>
+              <p class="opacity-80 text-sm sm:text-base mt-2.5 leading-relaxed">
+                ${leadStory.subtitle}
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t flex items-center justify-between gap-2" style="border-color: var(--border-tone);">
+              <div class="text-xs opacity-75">
+                <div class="font-bold">${leadStory.author.name}</div>
+                <div>${leadStory.publishedAt} • ${leadStory.readingTime}</div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <button onclick="toggleSaveStory('${leadStory.slug}')" class="px-3.5 py-1.5 rounded-full border text-xs font-semibold transition ios-press ${savedSlugs.includes(leadStory.slug) ? 'liquid-crimson-btn border-crimson text-white' : 'theme-subtle hover:border-crimson'}">
+                  ${savedSlugs.includes(leadStory.slug) ? 'Saved ✓' : 'Save'}
+                </button>
+                <button onclick="navigateTo('story', '${leadStory.slug}')" class="px-4 py-1.5 rounded-full liquid-crimson-btn text-white text-xs font-semibold transition ios-press">
+                  Read →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          ${remainingStories.map((story, idx) => {
+            const isSaved = savedSlugs.includes(story.slug);
+            return `
+              <article style="animation-delay: ${idx * 55}ms" class="stagger-card theme-surface liquid-card-interactive border rounded-[24px] overflow-hidden flex flex-col justify-between">
+                <div>
+                  <div onclick="navigateTo('story', '${story.slug}')" class="cursor-pointer overflow-hidden border-b" style="border-color: var(--border-tone);">
+                    ${getCoverVisual(story)}
+                  </div>
+                  <div class="p-5 sm:p-6">
+                    <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.14em] text-crimson">
+                      <span>${story.category}</span>
+                      <span class="opacity-60 font-normal">${story.readingTime}</span>
+                    </div>
+                    <h3 onclick="navigateTo('story', '${story.slug}')" class="gazette-headline text-xl sm:text-2xl font-semibold hover:text-crimson cursor-pointer transition mt-2">
+                      ${story.title}
+                    </h3>
+                    <p class="text-sm opacity-75 mt-2 leading-relaxed">
+                      ${story.subtitle}
+                    </p>
+                  </div>
+                </div>
+                <div class="px-5 sm:px-6 pb-4 pt-3 border-t flex items-center justify-between text-xs" style="border-color: var(--border-tone);">
+                  <span class="opacity-75"><strong>${story.author.name}</strong> • ${story.publishedAt}</span>
+                  <button onclick="toggleSaveStory('${story.slug}')" class="px-3 py-1 rounded-full theme-subtle border font-semibold ios-press ${isSaved ? 'text-crimson border-crimson' : 'opacity-75 hover:opacity-100'}">
+                    ${isSaved ? '✓ Saved' : '+ Save'}
+                  </button>
+                </div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderCategoryPillsHtml() {
+      const categories = ['All', ...Array.from(new Set(STORIES.map(s => s.category)))];
+      return categories.map(cat => `
+        <button
+          onclick="selectFeedCategory('${cat}')"
+          class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap shrink-0 transition duration-200 ios-press ${selectedCategory === cat ? 'liquid-crimson-btn text-white' : 'theme-surface border hover:border-crimson'}"
+        >
+          ${cat}
+        </button>
+      `).join('');
+    }
+
+    function renderHomeFeedView() {
+      const filteredStories = getFilteredStories();
+
+      return `
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-7 sm:py-10 view-transition">
+          <div class="border-b-2 pb-5 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-3" style="border-color: var(--text-ink);">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-crimson">The Harvard Gazette • Issue No. 14</p>
+              <h1 class="gazette-headline text-3xl sm:text-5xl font-bold mt-1">Stories & Faculty Interviews</h1>
+            </div>
+            <div class="text-xs opacity-75 flex items-center gap-2.5">
+              <span>${STORIES.length} stories in repository</span>
+              <span>•</span>
+              <button onclick="navigateTo('saved')" id="feed-saved-count" class="font-bold text-crimson underline">${savedSlugs.length} saved in queue</button>
+            </div>
+          </div>
+
+          <div class="theme-subtle border ios-squircle p-4 mb-8">
+            <div class="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+              <div class="relative flex-1">
+                <input
+                  id="feed-search-input"
+                  type="search"
+                  value="${feedQuery}"
+                  oninput="updateFeedQuery(this.value)"
+                  placeholder="Filter by title, author, or topic..."
+                  class="w-full theme-surface border rounded-full px-4 py-2 text-sm placeholder:text-stone-400 focus:outline-none focus:border-crimson"
+                />
+              </div>
+              <div id="feed-filter-meta" class="flex items-center justify-between sm:justify-end gap-2 text-xs opacity-75 px-1">
+                <span>Showing <strong>${filteredStories.length}</strong> of ${STORIES.length}</span>
+                ${(selectedCategory !== 'All' || feedQuery) ? `
+                  <button onclick="resetFeedFilters()" class="text-crimson font-semibold underline ml-2">Reset</button>
+                ` : ''}
+              </div>
+            </div>
+
+            <div id="feed-category-pills" class="mt-3 flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+              ${renderCategoryPillsHtml()}
+            </div>
+          </div>
+
+          <div id="feed-results-container">
+            ${renderHomeFeedResultsHtml()}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHomeFeedResults() {
+      const resultsEl = document.getElementById('feed-results-container');
+      const pillsEl = document.getElementById('feed-category-pills');
+      const metaEl = document.getElementById('feed-filter-meta');
+      const filteredStories = getFilteredStories();
+
+      if (resultsEl) resultsEl.innerHTML = renderHomeFeedResultsHtml();
+      if (pillsEl) pillsEl.innerHTML = renderCategoryPillsHtml();
+      if (metaEl) {
+        metaEl.innerHTML = `
+          <span>Showing <strong>${filteredStories.length}</strong> of ${STORIES.length}</span>
+          ${(selectedCategory !== 'All' || feedQuery) ? `
+            <button onclick="resetFeedFilters()" class="text-crimson font-semibold underline ml-2">Reset</button>
+          ` : ''}
+        `;
+      }
+    }
+
+    function navigateTo(view, slug = null) {
+      if (isAudioPlaying) stopAudioNarration();
+      currentView = view;
+      if (slug) currentSlug = slug;
+      hideReferenceToast();
+      closeDynamicIsland();
+      const pop = document.getElementById('appearance-popover');
+      if (pop) pop.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      render(true);
+    }
+
+    function updateFeedQuery(val) {
+      feedQuery = val;
+      renderHomeFeedResults();
+    }
+
+    function selectFeedCategory(cat) {
+      selectedCategory = cat;
+      renderHomeFeedResults();
+    }
+
+    function resetFeedFilters() {
+      selectedCategory = 'All';
+      feedQuery = '';
+      const input = document.getElementById('feed-search-input');
+      if (input) input.value = '';
+      renderHomeFeedResults();
+    }
+
+    function syncBodyScrollLock() {
+      const drawerEl = document.getElementById('menu-drawer');
+      const searchEl = document.getElementById('search-modal');
+      const drawerOpen = drawerEl && !drawerEl.classList.contains('hidden');
+      const searchOpen = searchEl && !searchEl.classList.contains('hidden');
+      document.body.style.overflow = (drawerOpen || searchOpen) ? 'hidden' : '';
+    }
+
+    function toggleMenuDrawer() {
+      const drawerEl = document.getElementById('menu-drawer');
+      if (drawerEl) drawerEl.classList.toggle('hidden');
+      syncBodyScrollLock();
+    }
+
+    function toggleSearchModal() {
+      const modal = document.getElementById('search-modal');
+      if (!modal) return;
+      modal.classList.toggle('hidden');
+      syncBodyScrollLock();
+      if (!modal.classList.contains('hidden')) {
+        const input = document.getElementById('search-input');
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+        handleModalSearch('');
+      }
+    }
+
+    function handleModalSearch(query) {
+      const q = (query || '').trim().toLowerCase();
+      const resultsEl = document.getElementById('search-results');
+      if (!resultsEl) return;
+      const matches = STORIES.filter(s =>
+        s.title.toLowerCase().includes(q) ||
+        s.subtitle.toLowerCase().includes(q) ||
+        s.author.name.toLowerCase().includes(q) ||
+        s.category.toLowerCase().includes(q)
+      );
+
+      if (matches.length === 0) {
+        resultsEl.innerHTML = `<div class="p-6 text-center text-sm opacity-60">No stories found for "${query}"</div>`;
+        return;
+      }
+
+      resultsEl.innerHTML = matches.map(s => `
+        <button onclick="navigateTo('story', '${s.slug}'); toggleSearchModal();" class="w-full text-left p-4 hover:bg-crimson/10 transition block">
+          <div class="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-crimson">
+            <span>${s.category}</span>
+            <span class="opacity-60">${s.readingTime}</span>
+          </div>
+          <div class="font-serif font-semibold text-base mt-0.5">${s.title}</div>
+          <div class="text-xs opacity-70 line-clamp-1 mt-0.5">${s.author.name} — ${s.subtitle}</div>
+        </button>
+      `).join('');
+    }
+
+    function copyShareUrl() {
+      const label = document.getElementById('copy-link-label');
+      const shareUrl = window.location.href;
+      try {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = shareUrl;
+        tempInput.style.position = 'fixed';
+        tempInput.style.opacity = '0';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      } catch (e) {}
+      if (label) {
+        label.textContent = 'Link Copied!';
+        setTimeout(() => { label.textContent = 'Share Link'; }, 2000);
+      }
+      showCustomToast("Link Copied", "Story link copied to your clipboard.", 2500);
+    }
+
+    function renderDrawerLinks() {
+      const el = document.getElementById('drawer-story-links');
+      if (!el) return;
+      el.innerHTML = STORIES.map(s => {
+        const isActive = currentView === 'story' && currentSlug === s.slug;
+        return `
+          <button onclick="navigateTo('story', '${s.slug}'); toggleMenuDrawer();" class="w-full text-left px-3 py-2 rounded-xl transition flex items-start gap-2 ios-press ${isActive ? 'bg-crimson/15 text-crimson font-semibold' : 'hover:bg-crimson/10 opacity-85'}">
+            <span class="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? 'bg-crimson' : 'bg-stone-400'}"></span>
+            <span class="text-xs leading-snug line-clamp-2">${s.title}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function updateDynamicIslandStatus() {
+      const dot = document.getElementById('island-dot');
+      const label = document.getElementById('island-label');
+      const pctEl = document.getElementById('island-pct');
+      if (!label || !pctEl || !dot) return;
+
+      if (isAudioPlaying) {
+        const mins = String(Math.floor(audioElapsedSeconds / 60)).padStart(2, '0');
+        const secs = String(audioElapsedSeconds % 60).padStart(2, '0');
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0';
+        label.textContent = `Spatial Audio (${audioSpeed}×)`;
+        pctEl.textContent = `${mins}:${secs}`;
+        return;
+      }
+
+      dot.className = 'w-2 h-2 rounded-full bg-crimson shrink-0';
+      if (currentView === 'story') {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const pct = docHeight > 0 ? Math.min(100, Math.max(0, Math.round((scrollTop / docHeight) * 100))) : 0;
+        const story = STORIES.find(s => s.slug === currentSlug) || STORIES[0];
+        label.textContent = scrollTop > 100 ? story.title : `${story.category} • ${story.author.name}`;
+        pctEl.textContent = pct > 0 ? `${pct}%` : story.readingTime;
+      } else if (currentView === 'saved') {
+        label.textContent = 'Saved Reading Queue';
+        pctEl.textContent = `${savedSlugs.length} Saved`;
+      } else {
+        label.textContent = 'All Gazette Stories';
+        pctEl.textContent = `${STORIES.length} Issues`;
+      }
+    }
+
+    function updateReadingProgress() {
+      const bar = document.getElementById('reading-progress-bar');
+      if (!bar) return;
+      if (currentView !== 'story') {
+        bar.style.width = '0%';
+        updateDynamicIslandStatus();
+        return;
+      }
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      bar.style.width = `${pct}%`;
+      updateDynamicIslandStatus();
+    }
+
+    function render(updateHash = false) {
+      const container = document.getElementById('app-content');
+      if (!container) return;
+
+      try {
+        if (currentView === 'home') {
+          container.innerHTML = renderHomeFeedView();
+          if (updateHash) history.replaceState(null, '', '#home');
+        } else if (currentView === 'saved') {
+          container.innerHTML = renderSavedStoriesView();
+          if (updateHash) history.replaceState(null, '', '#saved');
+        } else {
+          container.innerHTML = renderStoryDetailView(currentSlug);
+          if (updateHash) history.replaceState(null, '', `#story/${currentSlug}`);
+        }
+      } catch (err) {
+        console.error('Render error:', err);
+      }
+
+      updateHeaderBadges();
+      renderDrawerLinks();
+      applyReaderPrefs();
+      updateReadingProgress();
+      syncDynamicIslandDOM();
+    }
+
+    /* Pointer-Reactive Liquid Glass Specular Illumination */
+    let pointerRaf = null;
+    window.addEventListener('pointermove', (e) => {
+      if (pointerRaf) return;
+      pointerRaf = requestAnimationFrame(() => {
+        pointerRaf = null;
+        const dock = document.getElementById('liquid-bottom-dock');
+        if (dock) {
+          const r = dock.getBoundingClientRect();
+          dock.style.setProperty('--dock-x', `${e.clientX - r.left}px`);
+          dock.style.setProperty('--dock-y', `${e.clientY - r.top}px`);
+        }
+        const targetCard = e.target && e.target.closest ? e.target.closest('.theme-surface') : null;
+        if (targetCard) {
+          const cr = targetCard.getBoundingClientRect();
+          targetCard.style.setProperty('--card-x', `${e.clientX - cr.left}px`);
+          targetCard.style.setProperty('--card-y', `${e.clientY - cr.top}px`);
+        }
+      });
+    }, { passive: true });
+
+    window.addEventListener('scroll', () => {
+      updateReadingProgress();
+      hideSelectionPopover();
+    }, { passive: true });
+
+    function hideSelectionPopover() {
+      const pop = document.getElementById('selection-popover');
+      if (pop) pop.classList.add('hidden');
+    }
+
+    document.addEventListener('selectionchange', () => {
+      const sel = window.getSelection();
+      const pop = document.getElementById('selection-popover');
+      if (!pop) return;
+      if (!sel || sel.isCollapsed || currentView !== 'story') {
+        pop.classList.add('hidden');
+        return;
+      }
+      const text = sel.toString().trim();
+      if (text.length < 12 || text.length > 420) {
+        pop.classList.add('hidden');
+        return;
+      }
+      const anchorNode = sel.anchorNode;
+      const articleEl = anchorNode && anchorNode.parentElement ? anchorNode.parentElement.closest('.article-body') : null;
+      if (!articleEl) {
+        pop.classList.add('hidden');
+        return;
+      }
+      lastSelectedText = text;
+      const range = sel.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      const topPos = Math.max(82, rect.top - 46);
+      const leftPos = Math.min(window.innerWidth - 130, Math.max(130, rect.left + rect.width / 2));
+      pop.style.top = `${topPos}px`;
+      pop.style.left = `${leftPos}px`;
+      pop.style.transform = 'translateX(-50%)';
+      pop.classList.remove('hidden');
+    });
+
+    function quoteSelectedText(e) {
+      if (e) e.stopPropagation();
+      if (!lastSelectedText) return;
+      hideSelectionPopover();
+      const noteInput = document.getElementById('note-body-input');
+      if (noteInput) {
+        noteInput.value = `“${lastSelectedText}” — `;
+        noteInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => noteInput.focus(), 380);
+      }
+    }
+
+    function speakSelectedText(e) {
+      if (e) e.stopPropagation();
+      if (!lastSelectedText) return;
+      hideSelectionPopover();
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(lastSelectedText);
+          u.rate = audioSpeed;
+          window.speechSynthesis.speak(u);
+          showCustomToast('Speaking Selection', `“${lastSelectedText.slice(0, 90)}…”`, 3500);
+        } catch (err) {}
+      }
+    }
+
+    function copySelectedText(e) {
+      if (e) e.stopPropagation();
+      if (!lastSelectedText) return;
+      try {
+        const temp = document.createElement('textarea');
+        temp.value = `“${lastSelectedText}” — The Harvard Gazette`;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+      } catch (err) {}
+      hideSelectionPopover();
+      showCustomToast('Selection Copied', 'Excerpt copied to clipboard.', 2500);
+    }
+
+    document.addEventListener('click', (e) => {
+      const pop = document.getElementById('appearance-popover');
+      const container = document.getElementById('appearance-container');
+      if (pop && !pop.classList.contains('hidden')) {
+        if (container && !container.contains(e.target)) {
+          pop.classList.add('hidden');
+        }
+      }
+      const islandWrapper = document.getElementById('dynamic-island-wrapper');
+      if (islandExpanded && islandWrapper && !islandWrapper.contains(e.target)) {
+        closeDynamicIsland();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        toggleSearchModal();
+      }
+      if (e.key === 'Escape') {
+        const searchModal = document.getElementById('search-modal');
+        const menuDrawer = document.getElementById('menu-drawer');
+        const pop = document.getElementById('appearance-popover');
+        if (searchModal) searchModal.classList.add('hidden');
+        if (menuDrawer) menuDrawer.classList.add('hidden');
+        if (pop) pop.classList.add('hidden');
+        closeDynamicIsland();
+        syncBodyScrollLock();
+      }
+    });
+
+    initSavedState();
+    render(false);
+  </script>
+</body>
+</html>
