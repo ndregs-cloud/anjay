@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 22
       - name: Run official installer
-        run:  px --yes ui-ux-pro-max-cli@latest init --ai opencode
+        run:  npx --yes ui-ux-pro-max-cli@latest init --ai opencode
       - name: Commit generated skill
         run: |
           git config user.name "github-actions[bot]"
